@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdLogOut } from "react-icons/io";
 
@@ -105,7 +105,7 @@ const Navbar = () => {
                         : "Username Not Found"}
                     </h4>
                     <Link>
-                    <button className="btn btn-sm w-full">Dashboard</button>
+                      <button className="btn btn-sm w-full">Dashboard</button>
                     </Link>
                     <button
                       onClick={handleLogOut}

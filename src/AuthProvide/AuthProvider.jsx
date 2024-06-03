@@ -11,6 +11,8 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import auth from "../firebase.config/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+
 // import axios from "axios";
 
 export const AuthContext = createContext(null);
@@ -21,6 +23,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dark,setDark] = useState(false);
+  const axiosPublic = useAxiosPublic();
   
 
   const registerUser = (email, pass) => {
@@ -67,33 +70,30 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setLoading(true);
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      
-      setLoading(false);
-//============ this comment because in the Assignment notified me but after get mark then uncomment  ===============
-    //   const userEmail = currentUser?.email || user?.email;
-    //   const loggedUser = {email:userEmail};
+      if(currentUser){
+        const userInfo = {email:currentUser.email};
+        try {
+          await axiosPublic.post('/jwt',userInfo);
+          // console.log(data);
+          // localStorage.setItem('Token',data.token);
+        } catch (error) {
+          console.log(error.message);
+        }
 
-    //   if(currentUser){
-    //     axios.post('https://nearby-care.vercel.app/jwt',loggedUser,{withCredentials:true})
-    //     .then(res=>{
-    //       console.log('current user data',res.data);
-    //     })
-    // }
-    // else{
-    //   axios.post('https://nearby-care.vercel.app/Logout',loggedUser,{withCredentials:true})
-    //       .then(res=>{
-    //         console.log('token response', res.data);
-    //       })
-    // }
+      }else{
+        localStorage.removeItem('Token')
+      }
+      setLoading(false);
+
 
     return () => {
       unsubscribe();
     };
   });
 
-  }, [user?.email]);
+  }, [user?.email,axiosPublic]);
 
   
   const shareTools = {
