@@ -2,14 +2,13 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const validate = (values) => {
   const errors = {};
@@ -37,9 +36,6 @@ const validate = (values) => {
     errors.password = "Must be use Special characters";
   }
 
-  if (!values.Photo) {
-    errors.Photo = "Required";
-  }
   return errors;
 };
 
@@ -47,43 +43,24 @@ const imageHostingKey = import.meta.env.VITE_IMAGE_HOSING_KEY;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const Registration = () => {
+  const [photo,setPhoto] = useState(null);
   const axiosPublic = useAxiosPublic();
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const {
-    logInWithGoogle,
     registerUser,
     successToast,
     errorToast,
     setUser,
     profileUpdate,
     user,
+    setLoading,
+    loading,
   } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleGoogle = async () => {
-    try {
-      const {user} = await logInWithGoogle();
-      if(user){
-        const name = user?.displayName;
-        const email = user?.email;
-        const photo = user?.photoURL;
-        const info = {name,email,photo};
-        console.log(info);
-        try {
-          await axiosPublic.post('/users',info);
-        } catch (error) {
-          console.log(error.message);
-        }
-      }
-    } catch (error) {
-      // console.log(error.message);
-      return errorToast("Something Wrong");
-    }
-    successToast("Login successful");
-    navigate(location?.state ? location.state : "/");
-  };
+
 
   const formik = useFormik({
     initialValues: {
@@ -103,45 +80,39 @@ const Registration = () => {
       const name = values?.Name;
       const email = values?.email;
       const pass = values?.password;
+
       setError("");
       const formData = new FormData();
       formData.append("image", image);
-      // console.log(image);
-      if (image) {
-        try {
+      console.log(image);
+      try {
+        if(image){
           const { data } = await axios.post(imageHostingApi, formData, {
             headers: {
-              "Content-Type": "multipart/form-data",
+              "content-Type": "multipart/form-data",
             },
           });
-          // console.log(data);
-          if (data.success) {
-            const photo = data.data.display_url;
-            const info = {name,email,photo}
-            //send to database user information
-            try {
-              const {data} = await axiosPublic.post('/users',info);
-              console.log(data);
-            } catch (error) {
-              console.log(error.message);
-            }
+          console.log(data);
+          return setPhoto(data.data.display_url);
+        }
+        console.log(photo);
+        await registerUser(email, pass);
+        await profileUpdate(name, photo);
+        successToast("Registration successful");
+        navigate(location?.state ? location.state : "/");
+        setUser({ user, photoURL:photo, displayName: name });
 
-            //authenticate user
-            try {
-              await registerUser(email, pass);
-              await profileUpdate(name, photo);
-              successToast("Registration successful");
-              navigate(location?.state ? location.state : "/");
-             return setUser({ user, photoURL: photo, displayName: name });
-            } catch (error) {
-              errorToast("Something Wrong");
-              // console.log(error.message);
-              return setError(error.message.split("/")[1].split(")"));
-            }
-          }
+        try {
+          const info = {name,email,image,photo};
+          const res = await axiosPublic.post("/users", info);
+          console.log(res.data);
         } catch (error) {
           console.log(error.message);
         }
+      } catch (error) {
+        errorToast("Something Wrong");
+        setError(error.message.split("/")[1].split(")"));
+        console.log(error.message);
       }
     },
   });
@@ -150,14 +121,8 @@ const Registration = () => {
       <div className="mb-10">
         <h1 className="text-5xl font-bold text-center">Registration</h1>
       </div>
-      <div
-        onClick={handleGoogle}
-        className="flex items-center justify-center space-x-4 border-2 border-dashed rounded-lg p-2 my-4"
-      >
-        <span>
-          <FcGoogle className="text-3xl" />
-        </span>
-        <span className="text-2xl">Login with Google</span>
+      <div>
+      <SocialLogin></SocialLogin>
       </div>
       <div className="flex items-center w-full my-4">
         <hr className="w-full dark:text-gray-600" />

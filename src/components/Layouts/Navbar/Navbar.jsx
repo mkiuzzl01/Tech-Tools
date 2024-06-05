@@ -104,7 +104,7 @@ const Navbar = () => {
                         ? user.displayName
                         : "Username Not Found"}
                     </h4>
-                    <Link>
+                    <Link to='/Dashboard'>
                       <button className="btn btn-sm w-full">Dashboard</button>
                     </Link>
                     <button

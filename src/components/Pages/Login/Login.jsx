@@ -12,7 +12,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const validate = (values) => {
   const errors = {};
@@ -47,17 +47,6 @@ const Login = () => {
   const { logInWithGoogle, logInUser, successToast, errorToast } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const handleGoogle = async () => {
-    try {
-      await logInWithGoogle();
-      successToast("Login successful");
-      navigate(location?.state ? location.state : "/");
-    } catch (error) {
-      console.log(error.message);
-      errorToast("Something Wrong");
-    }
-  };
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -173,14 +162,8 @@ const Login = () => {
         >
           Login
         </button>
-        <div
-          onClick={handleGoogle}
-          className="flex items-center justify-center space-x-4 border-2 border-dashed rounded-lg p-2 my-4"
-        >
-          <span>
-            <FcGoogle className="text-3xl" />
-          </span>
-          <span className="text-2xl">Login with Google</span>
+        <div>
+          <SocialLogin></SocialLogin>
         </div>
         <p className="text-center">
           Don't have an account?
@@ -190,7 +173,7 @@ const Login = () => {
           </Link>
         </p>
       </form>
-      <ToastContainer limit={3} autoClose={1000}/>
+      <ToastContainer limit={3} autoClose={1000} />
     </div>
   );
 };
