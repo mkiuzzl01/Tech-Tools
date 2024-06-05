@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
+import { GiOilySpiral } from "react-icons/gi";
 
 const validate = (values) => {
   const errors = {};
@@ -76,6 +77,7 @@ const Registration = () => {
     validate,
 
     onSubmit: async (values) => {
+      setLoading(true);
       const image = values?.Photo;
       const name = values?.Name;
       const email = values?.email;
@@ -84,7 +86,7 @@ const Registration = () => {
       setError("");
       const formData = new FormData();
       formData.append("image", image);
-      console.log(image);
+      // console.log(image);
       try {
         if(image){
           const { data } = await axios.post(imageHostingApi, formData, {
@@ -92,10 +94,10 @@ const Registration = () => {
               "content-Type": "multipart/form-data",
             },
           });
-          console.log(data);
-          return setPhoto(data.data.display_url);
+          // console.log(data);
+          setPhoto(data.data.display_url);
         }
-        console.log(photo);
+        // console.log(photo);
         await registerUser(email, pass);
         await profileUpdate(name, photo);
         successToast("Registration successful");
@@ -132,7 +134,7 @@ const Registration = () => {
       <form onSubmit={formik.handleSubmit}>
         <div className="form-control">
           <label htmlFor="Name" className="label">
-            <span className="label-text">Name</span>
+            <span className="label-text">Name:</span>
           </label>
           <input
             className="input input-bordered"
@@ -148,7 +150,7 @@ const Registration = () => {
         </div>
         <div className="form-control">
           <label className="label" htmlFor="email">
-            <span className="label-text">Email</span>
+            <span className="label-text">Email:</span>
           </label>
           <input
             className="input input-bordered"
@@ -165,7 +167,7 @@ const Registration = () => {
         </div>
         <div className="form-control">
           <label htmlFor="password" className="label">
-            <span className="label-text">Password</span>
+            <span className="label-text">Password:</span>
           </label>
           <label className="input input-bordered flex items-center gap-2">
             <input
@@ -186,7 +188,7 @@ const Registration = () => {
         </div>
         <div className="form-control">
           <label className="label" htmlFor="Photo">
-            <span className="label-text">Photo</span>
+            <span className="label-text">Photo:</span>
           </label>
           <input
             type="file"
@@ -203,8 +205,14 @@ const Registration = () => {
           ) : null}
         </div>
         <p className="text-red-600">{error}</p>
-        <button className="btn my-4 w-full" type="submit">
-          Registration
+        <button disabled={loading} className="btn my-4 w-full" type="submit">
+          {
+            loading?
+            <GiOilySpiral className="animate-spin text-2xl text-red-400" />
+            :
+           <>Registration</>
+          }
+       
         </button>
         <p className="text-center">
           Have an account?

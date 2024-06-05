@@ -44,7 +44,8 @@ const validate = (values) => {
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const [captchaValid, setCaptchaValid] = useState(false);
-  const { logInWithGoogle, logInUser, successToast, errorToast } = useAuth();
+  const { logInUser, successToast, errorToast, setLoading, loading } =
+    useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,6 +62,7 @@ const Login = () => {
     validate,
 
     onSubmit: async (values) => {
+      setLoading(true);
       if (validateCaptcha(values.captcha)) {
         const { email, password } = values;
         const userInfo = { email, password };
