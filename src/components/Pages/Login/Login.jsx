@@ -7,12 +7,12 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
+import { GiOilySpiral } from "react-icons/gi";
 
 const validate = (values) => {
   const errors = {};
@@ -162,7 +162,11 @@ const Login = () => {
           type="submit"
           disabled={!captchaValid}
         >
-          Login
+          {loading ? (
+            <GiOilySpiral className="animate-spin text-2xl text-red-400" />
+          ) : (
+            <>Registration</>
+          )}
         </button>
         <div>
           <SocialLogin></SocialLogin>
