@@ -44,7 +44,6 @@ const imageHostingKey = import.meta.env.VITE_IMAGE_HOSING_KEY;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const Registration = () => {
-  const [photo,setPhoto] = useState(null);
   const axiosPublic = useAxiosPublic();
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
@@ -60,8 +59,6 @@ const Registration = () => {
   } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
-
 
   const formik = useFormik({
     initialValues: {
@@ -87,34 +84,42 @@ const Registration = () => {
       const formData = new FormData();
       formData.append("image", image);
       // console.log(image);
-      try {
-        if(image){
+      let photoURL = null;
+      if (image) {
+        try {
           const { data } = await axios.post(imageHostingApi, formData, {
             headers: {
               "content-Type": "multipart/form-data",
             },
           });
-          // console.log(data);
-          setPhoto(data.data.display_url);
+          photoURL = data?.data?.display_url;
+          // console.log(photoURL);
+          // setPhoto(photoURL);
+        } catch (error) {
+          errorToast("Something went wrong with photo upload");
+          setLoading(false);
+          return;
         }
-        // console.log(photo);
+      }
+      try {
+        // console.log(photoURL);
         await registerUser(email, pass);
-        await profileUpdate(name, photo);
+        await profileUpdate(name, photoURL);
         successToast("Registration successful");
         navigate(location?.state ? location.state : "/");
-        setUser({ user, photoURL:photo, displayName: name });
-
-        try {
-          const info = {name,email,image,photo};
-          const res = await axiosPublic.post("/users", info);
-          console.log(res.data);
-        } catch (error) {
-          console.log(error.message);
-        }
+        setUser({ ...user, photoURL: photoURL, displayName: name });
       } catch (error) {
         errorToast("Something Wrong");
         setError(error.message.split("/")[1].split(")"));
         console.log(error.message);
+      }
+
+      try {
+        const info = { name, email, image, photoURL };
+        await axiosPublic.post("/users", info);
+        // console.log(res.data);
+      } catch (error) {
+        errorToast("Something Wrong Sent to Database Your Information");
       }
     },
   });
@@ -124,7 +129,7 @@ const Registration = () => {
         <h1 className="text-5xl font-bold text-center">Registration</h1>
       </div>
       <div>
-      <SocialLogin></SocialLogin>
+        <SocialLogin></SocialLogin>
       </div>
       <div className="flex items-center w-full my-4">
         <hr className="w-full dark:text-gray-600" />
@@ -206,13 +211,11 @@ const Registration = () => {
         </div>
         <p className="text-red-600">{error}</p>
         <button disabled={loading} className="btn my-4 w-full" type="submit">
-          {
-            loading?
+          {loading ? (
             <GiOilySpiral className="animate-spin text-2xl text-red-400" />
-            :
-           <>Registration</>
-          }
-       
+          ) : (
+            <>Registration</>
+          )}
         </button>
         <p className="text-center">
           Have an account?

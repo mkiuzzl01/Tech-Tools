@@ -75,9 +75,9 @@ const AuthProvider = ({ children }) => {
       if(currentUser){
         const userInfo = {email:currentUser.email};
         try {
-          await axiosPublic.post('/jwt',userInfo);
+         const {data} =  await axiosPublic.post('/jwt',userInfo);
           // console.log(data);
-          // localStorage.setItem('Token',data.token);
+          localStorage.setItem('Token',data.token);
         } catch (error) {
           console.log(error.message);
         }

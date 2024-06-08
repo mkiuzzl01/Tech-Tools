@@ -165,7 +165,7 @@ const Login = () => {
           {loading ? (
             <GiOilySpiral className="animate-spin text-2xl text-red-400" />
           ) : (
-            <>Registration</>
+            <>Login</>
           )}
         </button>
         <div>

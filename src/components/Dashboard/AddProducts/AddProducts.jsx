@@ -101,7 +101,7 @@ const AddProducts = () => {
 
   return (
     <div>
-      <div className="max-w-4xl m-auto my-8 border-2 rounded-lg p-4 bg-sky-600">
+      <div className="max-w-4xl m-auto border-2 rounded-lg p-4 bg-sky-600">
         <Helmet>
           <title>Tech-Tools | Add Product </title>
         </Helmet>

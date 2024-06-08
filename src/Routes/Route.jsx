@@ -4,7 +4,7 @@ import Home from "../components/Pages/Home/Home";
 import Products from "../components/Pages/Products/Products";
 import Login from "../components/Pages/Login/Login";
 import Registration from "../components/Pages/Registration/Registration";
-import Dashboard from "../components/Dashboard/Dashboard";
+import Dashboard from "../Root/Dashboard";
 import UserProfile from "../components/Dashboard/UserProfile/UserProfile";
 import AddProducts from "../components/Dashboard/AddProducts/AddProducts";
 import MyProducts from "../components/Dashboard/MyProducts/MyProducts";
@@ -31,15 +31,15 @@ const router = createBrowserRouter([
     element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
     children: [
       {
-        path: "/Dashboard",
+        index:true,
         element: <UserProfile></UserProfile>,
       },
       {
-        path: "/Dashboard/AddProduct",
+        path: "AddProduct",
         element: <AddProducts></AddProducts>,
       },
       {
-        path: "/Dashboard/MyProducts",
+        path: "MyProducts",
         element: <MyProducts></MyProducts>,
       },
     ],
