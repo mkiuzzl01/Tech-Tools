@@ -1,17 +1,22 @@
 import useAuth from "../../../hooks/useAuth";
-
+import Featured_Products from "../../Section/Featured_Products/Featured_Products";
 
 const Home = () => {
-    const {successToast} = useAuth();
+  return (
+    <div>
+      <h1>This is Home Page</h1>
+      <div>
+        {/* TODO:Banner Section */}
+      </div>
 
-    const notify = () => successToast("something wrong");
-
-    return (
-        <div>
-            <h1>This is Home Page</h1>
-            <button onClick={notify}>Make me a toast</button>
-        </div>
-    );
+      {/* this Featured Products section */}
+      <div>
+        <Featured_Products></Featured_Products>
+      </div>
+      {/* This is Trending Products Section */}
+      
+    </div>
+  );
 };
 
 export default Home;
