@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { MdHowToVote } from "react-icons/md";
 import { Link } from "react-router-dom";
+import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 const Trending_Product_Card = ({product}) => {
   return (
       <div className="card card-compact  bg-base-100 shadow-xl">
@@ -24,10 +25,7 @@ const Trending_Product_Card = ({product}) => {
             <p>{product.description.substring(0,100)} .........</p>
           </div>
           <div className="card-actions justify-end">
-          <button title="Please Give a Vote" className="btn">
-              <span>{product.vote}</span>
-              <MdHowToVote />
-            </button>
+          <UpVote_Button vote={product.vote}></UpVote_Button>
           </div>
         </div>
       </div>

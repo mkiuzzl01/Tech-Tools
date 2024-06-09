@@ -3,6 +3,7 @@ import Section_Title from "../Section_Title/Section_Title";
 import Trending_Product_Card from "./Trending_Product_Card";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import Loading from "../../Shared/Loading/Loading";
 
 const Trending_Products = () => {
   const axiosPublic = useAxiosPublic();
@@ -13,7 +14,9 @@ const Trending_Products = () => {
       return data;
     },
   });
-  console.log(trendingProducts);
+
+  if(isLoading) return <Loading></Loading>
+
   return (
     <div>
       <div className="my-10 flex justify-center">

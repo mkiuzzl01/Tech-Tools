@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar z-10 bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -65,7 +65,7 @@ const Navbar = () => {
         <div className="navbar-end space-x-2">
           {user ? (
             <div>
-              <div className="dropdown dropdown-end">
+              <div className="dropdown z-40 dropdown-end">
                 <span
                   className={
                     user
