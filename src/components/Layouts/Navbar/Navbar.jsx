@@ -5,7 +5,7 @@ import { IoMdLogOut } from "react-icons/io";
 const Navbar = () => {
   const { user, warningToast, logOut, errorToast } = useAuth();
 
-  console.log(user);
+  // console.log(user);
   const handleLogOut = () => {
     try {
       logOut();

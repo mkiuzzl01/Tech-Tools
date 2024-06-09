@@ -1,57 +1,32 @@
-import { Link, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import Menu from "../components/Shared/Menu/Menu";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import SideBar from "../components/Dashboard/SideBar/SideBar";
+import { IoMenu } from "react-icons/io5";
+import { GiSplitCross } from "react-icons/gi";
 
 const Dashboard = () => {
-  const { logOut } = useAuth();
-  const handleLogOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error.message);
-    }
+  const [isOpen, setOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setOpen(!isOpen);
   };
+
   return (
     <div className="max-w-screen-xl m-auto">
-      <div className="flex justify-between">
+      <div className="relative min-h-screen md:flex">
         {/* This is NavLink part  */}
-        <div className="w-1/4 flex flex-col justify-between bg-gray-400 min-h-screen">
-          <div className="">
-            <div className="menu">
-              <ul className="ul">
-                <Menu link="/Dashboard" RouteName="My Profile"></Menu>
-                <Menu
-                  link="/Dashboard/AddProduct"
-                  RouteName="Add Product"
-                ></Menu>
-                <Menu
-                  link="/Dashboard/MyProducts"
-                  RouteName="My Profile"
-                ></Menu>
-              </ul>
-            </div>
-            <div className="divider">OR</div>
-            <div className="menu">
-              <ul>
-                <Menu link="/" RouteName="Home"></Menu>
-                <Menu link="/Products" RouteName="Products"></Menu>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <div className="menu">
-              <ul>
-                <li>
-                  <button onClick={handleLogOut} className="btn btn-sm">
-                    LogOut
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <SideBar isOpen={isOpen} toggleMenu={toggleMenu}></SideBar>
         {/* this is content part */}
-        <div className="flex-1 lg:m-5">
+        <div className="flex-1 md:ml-64 lg:m-5">
+          <div className="flex justify-end">
+            <button onClick={toggleMenu} className="md:hidden px-4 py-3">
+              {isOpen ? (
+                <IoMenu className="text-orange-600 text-2xl" />
+              ) : (
+                <GiSplitCross className="text-orange-600 text-2xl" />
+              )}
+            </button>
+          </div>
           <Outlet></Outlet>
         </div>
       </div>

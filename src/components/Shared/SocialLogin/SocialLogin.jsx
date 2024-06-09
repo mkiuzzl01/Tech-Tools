@@ -9,7 +9,9 @@ const SocialLogin = () => {
   const axiosPublic = useAxiosPublic();
   const location = useLocation();
   const navigate = useNavigate();
+  // console.log(location);
 
+  const from = location?.state ? location?.state?.from?.pathname : "/";
   const handleGoogle = async () => {
     setLoading(true);
     try {
@@ -23,7 +25,7 @@ const SocialLogin = () => {
         try {
           await axiosPublic.post("/users", info);
           successToast("Login successful");
-          navigate(location?.state ? location.state : "/");
+          navigate(from);
         } catch (error) {
           console.log(error.message);
         }

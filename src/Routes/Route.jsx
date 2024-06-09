@@ -5,11 +5,11 @@ import Products from "../components/Pages/Products/Products";
 import Login from "../components/Pages/Login/Login";
 import Registration from "../components/Pages/Registration/Registration";
 import Dashboard from "../Root/Dashboard";
-import UserProfile from "../components/Dashboard/UserProfile/UserProfile";
 import AddProducts from "../components/Dashboard/AddProducts/AddProducts";
 import MyProducts from "../components/Dashboard/MyProducts/MyProducts";
 import PrivateRoutes from "./PrivateRoutes";
 import Not_Found_Page from "../components/Pages/Not_Found_Page/Not_Found_Page";
+import Profile from "../components/Dashboard/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     children: [
       {
         index:true,
-        element: <UserProfile></UserProfile>,
+        element: <Profile></Profile>,
       },
       {
         path: "AddProduct",
