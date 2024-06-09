@@ -9,11 +9,13 @@ import UserProfile from "../components/Dashboard/UserProfile/UserProfile";
 import AddProducts from "../components/Dashboard/AddProducts/AddProducts";
 import MyProducts from "../components/Dashboard/MyProducts/MyProducts";
 import PrivateRoutes from "./PrivateRoutes";
+import Not_Found_Page from "../components/Pages/Not_Found_Page/Not_Found_Page";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement:<Not_Found_Page></Not_Found_Page>,
     children: [
       {
         path: "/",

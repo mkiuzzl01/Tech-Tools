@@ -1,55 +1,57 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FiDelete, FiEdit } from "react-icons/fi";;
+import { FiDelete, FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import UpdateProduct from "../UpdateProduct/UpdateProduct";
+import { useState } from "react";
 
 const MyProducts = () => {
-  const { user,errorToast } = useAuth();
+  const { user, errorToast } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: products = [],refetch } = useQuery({
+  const [isOpen, setIsOpen] = useState(false);
+  const [initialProduct,setInitialProduct] = useState({});
+
+  const { data: products = [], refetch, isLoading } = useQuery({
     queryKey: ["userProducts"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/products/${user.email}`);
       return data;
     },
   });
-  console.log(products);
+  // console.log(products);
 
   const handleDelete = (_id) => {
     try {
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            const { data } = await axiosSecure.delete(`/product-delete/${_id}`
-            );
-            console.log(data);
-            if (data.deletedCount > 0) {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Product added successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-              refetch();
-            }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { data } = await axiosSecure.delete(`/product-delete/${_id}`);
+          console.log(data);
+          if (data.deletedCount > 0) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Product added successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            refetch();
           }
-        });
-      } catch (error) {
-        errorToast("Something wrong");
-        //   console.log(error);
-      }
-
+        }
+      });
+    } catch (error) {
+      errorToast("Something wrong");
+      //   console.log(error);
+    }
   };
   return (
     <div>
@@ -115,11 +117,13 @@ const MyProducts = () => {
                   </td>
                   <th>
                     <div className="flex flex-col items-center space-y-4">
-                      <Link to={`/Update_Appointment/${product._id}`}>
-                        <button title="Edit" className="text-xl text-green-600">
+                        <button
+                          onClick={() => {setIsOpen(true);setInitialProduct(product)}}
+                          title="Edit"
+                          className="text-xl text-green-600"
+                          >
                           <FiEdit></FiEdit>
                         </button>
-                      </Link>
                       <button
                         title="Delete"
                         onClick={() => handleDelete(product._id)}
@@ -133,6 +137,7 @@ const MyProducts = () => {
               ))}
             </tbody>
           </table>
+          {isOpen && <UpdateProduct refetch={refetch} isLoading={isLoading} product={initialProduct} setIsOpen={setIsOpen}></UpdateProduct>}
         </div>
       ) : (
         <div>

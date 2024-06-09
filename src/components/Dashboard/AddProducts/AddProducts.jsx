@@ -2,20 +2,23 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { WithContext as ReactTags } from "react-tag-input";
-import axios from "axios";
 import "./Tags.css";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { GiOilySpiral } from "react-icons/gi";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const imageHostingKey = import.meta.env.VITE_IMAGE_HOSING_KEY;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const AddProducts = () => {
-  const { user } = useAuth();
+  const { user, errorToast } = useAuth();
   const [tags, setTags] = useState([]);
-  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
+  const axiosPublic = useAxiosPublic();
+  const [adding, setAdding] = useState(false);
 
   const KeyCodes = {
     comma: 188,
@@ -34,7 +37,7 @@ const AddProducts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setAdding(true);
     const form = e.target;
     const productName = form.productName.value;
     const productLink = form.Link.value;
@@ -46,17 +49,17 @@ const AddProducts = () => {
     const status = "pending";
     const vote = 0;
     const description = form.description.value;
-    const {...productTags} = tags.map((tag) => tag.text);
+    const productTags = tags.map((tag) => tag.text);
 
     // return console.log(productTags);
 
     const productImage = form.image.files[0];
     const formData = new FormData();
     formData.append("image", productImage);
-    console.log(productImage);
+    // console.log(productImage);
 
     try {
-      const { data } = await axios.post(imageHostingApi, formData, {
+      const { data } = await axiosPublic.post(imageHostingApi, formData, {
         headers: {
           "content-Type": "multipart/form-data",
         },
@@ -78,24 +81,26 @@ const AddProducts = () => {
         };
 
         try {
-          const { data } = await axiosPublic.post('/products',productInfo);
-          if(data.insertedId){
+          const { data } = await axiosSecure.post("/products", productInfo);
+          if (data.insertedId) {
+            setAdding(false);
             Swal.fire({
               position: "center",
               icon: "success",
               title: "Product added successfully",
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
             });
-            navigate('/Dashboard/MyProducts')
+            navigate("/Dashboard/MyProducts");
           }
         } catch (error) {
-          console.log(error.message);
+          errorToast("Something Wrong");
+          // console.log(error.message);
         }
-        console.log(productInfo);
       }
     } catch (error) {
-      console.log(error.message);
+      errorToast("Something Wrong");
+      // console.log(error.message);
     }
   };
 
@@ -227,12 +232,13 @@ const AddProducts = () => {
             </div>
             <div className="my-8">
               <div className="lg:col-span-2">
-                <input
-                  required
-                  type="submit"
-                  className="btn hover:bg-[#004d99] w-full border-none bg-[#7fb800] dark:hover:text-white"
-                  value="Submit"
-                />
+                <button className="btn hover:bg-[#004d99] w-full border-none bg-[#7fb800] dark:hover:text-white">
+                  {adding ? (
+                    <GiOilySpiral className="animate-spin text-2xl text-red-400" />
+                  ) : (
+                    <>Add Product</>
+                  )}
+                </button>
               </div>
             </div>
           </form>

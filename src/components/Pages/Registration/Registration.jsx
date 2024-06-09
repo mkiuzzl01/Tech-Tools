@@ -84,6 +84,8 @@ const Registration = () => {
       const formData = new FormData();
       formData.append("image", image);
       // console.log(image);
+
+      //upload to image imagebb from get input field
       let photoURL = null;
       if (image) {
         try {
@@ -102,7 +104,7 @@ const Registration = () => {
         }
       }
       try {
-        // console.log(photoURL);
+        //set information to firebase
         await registerUser(email, pass);
         await profileUpdate(name, photoURL);
         successToast("Registration successful");
@@ -111,10 +113,11 @@ const Registration = () => {
       } catch (error) {
         errorToast("Something Wrong");
         setError(error.message.split("/")[1].split(")"));
-        console.log(error.message);
+        // console.log(error.message);
       }
 
       try {
+        //after all oke then user information sent to database
         const info = { name, email, image, photoURL };
         await axiosPublic.post("/users", info);
         // console.log(res.data);
