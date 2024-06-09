@@ -1,19 +1,18 @@
 import PropTypes from "prop-types";
 import { MdHowToVote } from "react-icons/md";
-
-const Feature_Card = ({ product }) => {
+import { Link } from "react-router-dom";
+const Trending_Product_Card = ({product}) => {
   return (
-    <div>
-      <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 shadow-xl">
+      <div className="card card-compact  bg-base-100 shadow-xl">
         <figure>
           <img
             src={product.productImage}
             alt={product.productName}
-            className="w-full h-40"
+            className="w-full h-48"
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{product.productName}</h2>
+          <Link to={`/Products_Details/${product._id}`}><h2 className="card-title hover:text-blue-500">{product.productName}</h2></Link>
           <div className="flex flex-row ">
             {product?.productTags.map((tag, idx) => (
               <p className="" key={idx}>
@@ -21,20 +20,22 @@ const Feature_Card = ({ product }) => {
               </p>
             ))}
           </div>
+          <div>
+            <p>{product.description.substring(0,100)} .........</p>
+          </div>
           <div className="card-actions justify-end">
-            <button title="Please Give a Vote" className="btn">
+          <button title="Please Give a Vote" className="btn">
               <span>{product.vote}</span>
               <MdHowToVote />
             </button>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
-Feature_Card.propTypes = {
-  product: PropTypes.object,
+Trending_Product_Card.propTypes = {
+    product:PropTypes.object,
 };
 
-export default Feature_Card;
+export default Trending_Product_Card;

@@ -1,5 +1,6 @@
 import useAuth from "../../../hooks/useAuth";
 import Featured_Products from "../../Section/Featured_Products/Featured_Products";
+import Trending_Products from "../../Section/Trending_Products/Trending_Products";
 
 const Home = () => {
   return (
@@ -14,7 +15,9 @@ const Home = () => {
         <Featured_Products></Featured_Products>
       </div>
       {/* This is Trending Products Section */}
-      
+      <div>
+        <Trending_Products></Trending_Products>
+      </div>
     </div>
   );
 };

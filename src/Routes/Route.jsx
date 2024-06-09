@@ -10,6 +10,7 @@ import MyProducts from "../components/Dashboard/MyProducts/MyProducts";
 import PrivateRoutes from "./PrivateRoutes";
 import Not_Found_Page from "../components/Pages/Not_Found_Page/Not_Found_Page";
 import Profile from "../components/Dashboard/Profile/Profile";
+import Product_Details from "../components/Pages/Product_Details/Product_Details";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/Products",
         element: <Products></Products>,
+      },
+      {
+        path: "/Products_Details/:id",
+        element: <Product_Details></Product_Details>,
       },
     ],
   },
