@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
-import { MdHowToVote } from "react-icons/md";
 import { Link } from "react-router-dom";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 
-const Featured_Products_Card = ({ product }) => {
+const Featured_Products_Card = ({ product,refetch}) => {
   return (
     <div>
       <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 shadow-xl">
@@ -30,7 +29,7 @@ const Featured_Products_Card = ({ product }) => {
             ))}
           </div>
           <div className="card-actions justify-end">
-            <UpVote_Button vote={product.vote}></UpVote_Button>
+            <UpVote_Button vote={product.vote} id={product._id} refetch={refetch}></UpVote_Button>
           </div>
         </div>
       </div>
@@ -40,6 +39,7 @@ const Featured_Products_Card = ({ product }) => {
 
 Featured_Products_Card.propTypes = {
   product: PropTypes.object,
+  refetch:PropTypes.func,
 };
 
 export default Featured_Products_Card;

@@ -21,7 +21,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dark,setDark] = useState(false);
   const axiosPublic = useAxiosPublic();
   
@@ -40,7 +40,6 @@ const AuthProvider = ({ children }) => {
   };
  
   const logOut = () => {
-    setLoading(true);
     setUser(null);
     return signOut(auth);
   };
@@ -95,7 +94,7 @@ const AuthProvider = ({ children }) => {
 
   }, [user?.email,axiosPublic]);
 
-  
+  console.log('auth',loading);
   const shareTools = {
     user,
     loading,

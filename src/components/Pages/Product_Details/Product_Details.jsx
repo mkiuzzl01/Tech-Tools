@@ -112,7 +112,7 @@ const Product_Details = () => {
                 </div>
 
                 <div className="flex space-x-4 mt-4">
-                  <UpVote_Button vote={product.vote}></UpVote_Button>
+                  <UpVote_Button vote={product.vote} id={product._id} refetch={refetch}></UpVote_Button>
                   <Report_Button product={product} user={user} warningToast={warningToast}></Report_Button>
                 </div>
               </div>

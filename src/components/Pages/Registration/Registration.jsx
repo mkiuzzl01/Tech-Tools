@@ -59,7 +59,8 @@ const Registration = () => {
   } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
+  // setLoading(false);
+console.log(loading);
   const formik = useFormik({
     initialValues: {
       Name: "",

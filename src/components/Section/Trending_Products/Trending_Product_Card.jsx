@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { MdHowToVote } from "react-icons/md";
 import { Link } from "react-router-dom";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
-const Trending_Product_Card = ({product}) => {
+const Trending_Product_Card = ({product,refetch}) => {
   return (
       <div className="card card-compact  bg-base-100 shadow-xl">
         <figure>
@@ -25,7 +24,7 @@ const Trending_Product_Card = ({product}) => {
             <p>{product.description.substring(0,100)} .........</p>
           </div>
           <div className="card-actions justify-end">
-          <UpVote_Button vote={product.vote}></UpVote_Button>
+          <UpVote_Button vote={product.vote} id={product._id} refetch={refetch}></UpVote_Button>
           </div>
         </div>
       </div>
@@ -34,6 +33,7 @@ const Trending_Product_Card = ({product}) => {
 
 Trending_Product_Card.propTypes = {
     product:PropTypes.object,
+    refetch:PropTypes.func,
 };
 
 export default Trending_Product_Card;

@@ -7,7 +7,7 @@ import Loading from "../../Shared/Loading/Loading";
 
 const Trending_Products = () => {
   const axiosPublic = useAxiosPublic();
-  const { data: trendingProducts = [], isLoading } = useQuery({
+  const { data: trendingProducts = [], isLoading,refetch} = useQuery({
     queryKey: ["Trending-Products"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/Trending-Products");
@@ -27,7 +27,7 @@ const Trending_Products = () => {
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
        {
-        trendingProducts.map(product=> <Trending_Product_Card key={product._id} product={product}></Trending_Product_Card>)
+        trendingProducts.map(product=> <Trending_Product_Card key={product._id} product={product} refetch={refetch}></Trending_Product_Card>)
        }
       </div>
       <div className="flex justify-center my-10">

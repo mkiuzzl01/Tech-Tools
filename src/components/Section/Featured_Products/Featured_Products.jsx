@@ -6,7 +6,7 @@ import Loading from "../../Shared/Loading/Loading";
 
 const Featured_Products = () => {
   const axiosPublic = useAxiosPublic();
-  const { data: featuredProducts = [], isLoading } = useQuery({
+  const { data: featuredProducts = [], isLoading,refetch } = useQuery({
     queryKey: ["Featured-Products"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/Featured-Products");
@@ -28,6 +28,7 @@ const Featured_Products = () => {
           <Featured_Products_Card
             key={product._id}
             product={product}
+            refetch={refetch}
           ></Featured_Products_Card>
         ))}
       </div>
