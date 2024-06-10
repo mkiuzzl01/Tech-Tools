@@ -15,11 +15,17 @@ const Featured_Products_Card = ({ product }) => {
           />
         </figure>
         <div className="card-body">
-        <Link to={`/Products_Details/${product._id}`}><h2 className="card-title hover:text-blue-500">{product.productName}</h2></Link>
+          <Link to={`/Products_Details/${product._id}`}>
+            <h2 className="card-title hover:text-blue-500">
+              {product.productName}
+            </h2>
+          </Link>
           <div className="flex flex-row ">
             {product?.productTags.map((tag, idx) => (
               <p className="" key={idx}>
-                <span className="bg-yellow-400 text-sm rounded-lg">{tag}</span>
+                <span className="bg-yellow-400 text-sm rounded-lg">
+                  {tag}
+                </span>
               </p>
             ))}
           </div>

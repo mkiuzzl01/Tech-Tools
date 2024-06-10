@@ -4,67 +4,206 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../Shared/Loading/Loading";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 import Report_Button from "../../Shared/Report_Button/Report_Button";
+import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
+import { CiStar } from "react-icons/ci";
+import Swal from "sweetalert2";
 
 const Product_Details = () => {
+  const { user,warningToast } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
 
-  console.log(id);
-  const { data: product = {}, isLoading } = useQuery({
+  const { data: product = {}, isLoading} = useQuery({
     queryKey: ["Product_Details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/Product-Details/${id}`);
       return data;
     },
   });
-  console.log(product);
-  if (isLoading) return <Loading></Loading>;
+
+  const { data: reviews = [], isFetching,refetch} = useQuery({
+    queryKey: ["reviews"],
+    enabled:!!user?.email,
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/product-review/${user?.email}`);
+      return data;
+    },
+  });
+  const reviewsId = reviews.find(review=> review?.product._id === product?._id);
+  
+  if (isLoading || isFetching) return <Loading></Loading>;
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (reviewsId){
+        return warningToast("Already Review Submitted");
+    }
+    const form = e.target;
+    const reviewerName = form?.ReviewerName.value;
+    const reviewerEmail = user?.email;
+    const reviewerImage = form?.ReviewerImage.value;
+    const reviewDescription = form?.ReviewDescription.value;
+    const productRating = rating;
+    const review = {
+      reviewerName,
+      reviewerImage,
+      reviewerEmail,
+      reviewDescription,
+      productRating,
+      ...{ product },
+    };
+    // console.log(review);
+
+    //send to database review product information
+    try {
+      const { data } = await axiosSecure.post("/product-review", review);
+      if (data.insertedId) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your Review Accepted",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
-      <section className="bg-gray-400">
-        <div className="max-w-6xl px-6 py-10 mx-auto">
-          <h1 className="mt-2 text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">
-            {product?.productName}
-          </h1>
-
-          <main className="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
-            <div className="absolute w-full bg-blue-600 -z-10 md:h-96 rounded-2xl"></div>
-
-            <div className="w-full p-6 bg-blue-600 md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
-              <img
-                className="h-24 w-24 md:mx-6 rounded-full object-cover shadow-md md:h-[32rem] md:w-80 lg:h-[36rem] lg:w-[26rem] md:rounded-2xl"
-                src={product.productImage}
-                alt="client photo"
-              />
-
-              <div className="flex flex-col items-center">
+      <div className="py-10">
+        <div className="flex flex-col items-center lg:flex-row">
+          <div className="lg:w-1/2">
+            <div className="overflow-hidden rounded-lg  border-2 max-w-xl">
+              <div className="flex justify-center">
+                <img src={product.productImage} alt="" />
+              </div>
+              <div className="p-6">
                 <div>
-                  <p className="text-white">
-                    <span className="font-bold">Link:</span> <span className="link">{product.productLink}</span>
+                  <div className="flex flex-row mb-3 space-x-2">
+                    {product?.productTags.map((tag, idx) => (
+                      <p key={idx}>
+                        <span className="bg-yellow-400 text-sm p-1 rounded-lg">
+                          {tag}
+                        </span>
+                      </p>
+                    ))}
+                  </div>
+                  <h1 className="text-3xl font-semibold">
+                    {" "}
+                    <span>Name:</span> <span>{product.productName}</span>
+                  </h1>
+                  <p>
+                    <span className="font-semibold">Link: </span>{" "}
+                    <span className="link-hover hover:text-blue-600">
+                      {product.productLink}
+                    </span>
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    {product.description}
                   </p>
                 </div>
-                <p className="mt-4 text-lg leading-relaxed text-white md:text-xl">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mt-6 space-x-4 md:justify-start">
+
+                <div className="flex space-x-4 mt-4">
                   <UpVote_Button vote={product.vote}></UpVote_Button>
-                  <Report_Button></Report_Button>
+                  <Report_Button product={product} user={user} warningToast={warningToast}></Report_Button>
                 </div>
-                <div className="flex my-2">
-                  {product.productTags.map((tag, idx) => (
-                    <p className="mx-3" key={idx}>
-                      <span className="bg-yellow-400 p-1 text-sm rounded-lg">
-                        {tag}
-                      </span>
-                    </p>
-                  ))}
-                </div>
-               
               </div>
             </div>
-          </main>
+          </div>
+
+          <div className="flex lg:w-1/2 mt-14 lg:mt-0 justify-center">
+            <div className="w-full rounded-lg">
+              <div className="text-center">
+                <div className="w-full p-8 rounded-lg border-2">
+                  <div className="flex justify-center -mt-16 md:justify-end">
+                    <img
+                      className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400"
+                      alt={user?.displayName}
+                      src={user?.photoURL}
+                    />
+                  </div>
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid  gap-6 mt-4 grid-cols-2">
+                      <div className="col-span-2 lg:col-span-1">
+                        <label htmlFor="ReviewerName" className="label">
+                          <span className="label-text">Reviewer Name</span>
+                        </label>
+                        <input
+                          disabled
+                          defaultValue={user?.displayName}
+                          name="ReviewerName"
+                          type="text"
+                          className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                        />
+                      </div>
+                      <div className="col-span-2 lg:col-span-1">
+                        <label htmlFor="ReviewerImage" className="label">
+                          <span className="label-text">Reviewer Image</span>
+                        </label>
+                        <input
+                          disabled
+                          defaultValue={user?.photoURL}
+                          name="ReviewerImage"
+                          type="text"
+                          className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                        />
+                      </div>
+
+                      <div className="col-span-2 lg:col-span-2">
+                        <label htmlFor="ReviewerImage" className="label">
+                          <span className="label-text">Product Rating</span>
+                        </label>
+                        <div className="rating rating-lg">
+                          {[...Array(5)].map((_, idx) => {
+                            const currentIdx = idx + 1;
+                            return (
+                              <span
+                                key={idx}
+                                onMouseEnter={() => setHover(currentIdx)}
+                                onMouseLeave={() => setHover(null)}
+                                onClick={() => setRating(currentIdx)}
+                                className={`mask mask-star-2 ${
+                                  currentIdx <= (hover || rating)
+                                    ? "bg-orange-400"
+                                    : undefined
+                                }`}
+                              >
+                                <CiStar className="text-4xl" />
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div className="col-span-2">
+                        <textarea
+                          name="ReviewDescription"
+                          cols="10"
+                          rows="4"
+                          className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end mt-6">
+                      <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
