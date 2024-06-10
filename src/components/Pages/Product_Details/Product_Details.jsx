@@ -8,15 +8,16 @@ import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { CiStar } from "react-icons/ci";
 import Swal from "sweetalert2";
+import ReviewSlider from "../../Slider/ReviewSlider/ReviewSlider";
 
 const Product_Details = () => {
-  const { user,warningToast } = useAuth();
+  const { user, warningToast } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
-  const { data: product = {}, isLoading} = useQuery({
+  const { data: product = {}, isLoading } = useQuery({
     queryKey: ["Product_Details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/Product-Details/${id}`);
@@ -24,23 +25,38 @@ const Product_Details = () => {
     },
   });
 
-  const { data: reviews = [], isFetching,refetch} = useQuery({
+  const {
+    data: reviews = [],
+    isFetching,
+    refetch,
+  } = useQuery({
     queryKey: ["reviews"],
-    enabled:!!user?.email,
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/product-review/${user?.email}`);
       return data;
     },
   });
-  const reviewsId = reviews.find(review=> review?.product._id === product?._id);
-  
+
+  const { data:userReviews = [] } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/product-review");
+      return data;
+    },
+  });
+
+  console.log(userReviews);
+
+  const reviewsId = reviews.find(
+    (review) => review?.product._id === product?._id
+  );
+
   if (isLoading || isFetching) return <Loading></Loading>;
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (reviewsId){
-        return warningToast("Already Review Submitted");
+    if (reviewsId) {
+      return warningToast("Already Review Submitted");
     }
     const form = e.target;
     const reviewerName = form?.ReviewerName.value;
@@ -78,6 +94,9 @@ const Product_Details = () => {
 
   return (
     <div>
+      <div>
+        <ReviewSlider userReviews={userReviews}></ReviewSlider>
+      </div>
       <div className="py-10">
         <div className="flex flex-col items-center lg:flex-row">
           <div className="lg:w-1/2">
@@ -112,8 +131,16 @@ const Product_Details = () => {
                 </div>
 
                 <div className="flex space-x-4 mt-4">
-                  <UpVote_Button vote={product.vote} id={product._id} refetch={refetch}></UpVote_Button>
-                  <Report_Button product={product} user={user} warningToast={warningToast}></Report_Button>
+                  <UpVote_Button
+                    vote={product.vote}
+                    id={product._id}
+                    refetch={refetch}
+                  ></UpVote_Button>
+                  <Report_Button
+                    product={product}
+                    user={user}
+                    warningToast={warningToast}
+                  ></Report_Button>
                 </div>
               </div>
             </div>
