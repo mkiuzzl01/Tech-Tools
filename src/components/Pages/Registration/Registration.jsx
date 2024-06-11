@@ -119,7 +119,7 @@ console.log(loading);
 
       try {
         //after all oke then user information sent to database
-        const info = { name, email, image, photoURL };
+        const info = { name, email, image, photoURL, role:'user'};
         await axiosPublic.post("/users", info);
         // console.log(res.data);
       } catch (error) {

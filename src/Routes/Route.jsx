@@ -11,6 +11,11 @@ import PrivateRoutes from "./PrivateRoutes";
 import Not_Found_Page from "../components/Pages/Not_Found_Page/Not_Found_Page";
 import Profile from "../components/Dashboard/Profile/Profile";
 import Product_Details from "../components/Pages/Product_Details/Product_Details";
+import StatisticsPage from "../components/Dashboard/StatisticsPage/StatisticsPage";
+import ManageCoupons from "../components/Dashboard/ManageCoupons/ManageCoupons";
+import ManageUsers from "../components/Dashboard/ManageUsers/ManageUsers";
+import ProductReviewQueue from "../components/Dashboard/ProductReviewQueue/ProductReviewQueue";
+import ReportedContents from "../components/Dashboard/ReportedContents/ReportedContents";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +53,26 @@ const router = createBrowserRouter([
       {
         path: "MyProducts",
         element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "ProductReviewQueue",
+        element: <ProductReviewQueue></ProductReviewQueue>,
+      },
+      {
+        path: "ReportedContents",
+        element: <ReportedContents></ReportedContents>,
+      },
+      {
+        path: "Statistics",
+        element: <StatisticsPage></StatisticsPage>,
+      },
+      {
+        path: "ManageUsers",
+        element:<ManageUsers></ManageUsers>,
+      },
+      {
+        path: "ManageCoupons",
+        element: <ManageCoupons></ManageCoupons>,
       },
     ],
   },

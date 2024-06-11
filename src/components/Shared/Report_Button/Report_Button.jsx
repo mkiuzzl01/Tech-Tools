@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-
+  // return console.log(product);
   const { data: reports = [], refetch} = useQuery({
     queryKey: ["reports"],
     enabled:!!user?.email,
@@ -25,6 +25,7 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
     refetch();
     if(ownerEmail === user?.email) return warningToast("Something Wrong");
     if(reportId ) return warningToast("Already Report It");
+
     const report = e?.target?.report?.value || "";
     const reporterEmail = user?.email;
     const info = { product, reporterEmail, report };
@@ -188,6 +189,7 @@ Report_Button.propTypes = {
   product: PropTypes.object,
   user: PropTypes.object,
   warningToast:PropTypes.func,
+  ownerEmail:PropTypes.string,
 };
 
 export default Report_Button;

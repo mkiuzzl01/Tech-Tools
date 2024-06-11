@@ -17,7 +17,7 @@ const Product_Details = () => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
-  const { data: product = {}, isLoading } = useQuery({
+  const { data: product = {}, isLoading, refetch } = useQuery({
     queryKey: ["Product_Details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/Product-Details/${id}`);
@@ -25,40 +25,25 @@ const Product_Details = () => {
     },
   });
 
-  const {
-    data: reviews = [],
-    isFetching,
-    refetch,
-  } = useQuery({
+  
+  const { data: userReviews = [] , isFetching,} = useQuery({
+    enabled:!!id,
     queryKey: ["reviews"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/product-review/${user?.email}`);
+      const { data } = await axiosSecure.get(`/review-products/${id}`);
       return data;
     },
   });
 
-  const { data: userReviews = [] } = useQuery({
-    queryKey: ["reviews"],
-    queryFn: async () => {
-      const { data } = await axiosSecure.get("/product-review");
-      return data;
-    },
-  });
+ 
 
-  console.log(userReviews);
 
-  const reviewsId = reviews.find(
-    (review) => review?.product._id === product?._id
-  );
-
-  if (isLoading || isFetching) return <Loading></Loading>;
+  if (isFetching || isLoading ) return <Loading></Loading>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(product.ownerEmail === user?.email) return warningToast("Something Wrong");
-    if (reviewsId) {
-      return warningToast("Already Review Submitted");
-    }
+   
     const form = e.target;
     const reviewerName = form?.ReviewerName.value;
     const reviewerEmail = user?.email;
@@ -86,10 +71,12 @@ const Product_Details = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch();
+
+      } else{
+        warningToast("Already Review Submitted");
       }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 

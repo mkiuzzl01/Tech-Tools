@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import useAuth from "../../../hooks/useAuth";
 import Menu from "../../Shared/Menu/Menu";
+import useUserVerification from "../../../hooks/useUserVerification";
 
 const SideBar = ({ isOpen }) => {
   const { logOut } = useAuth();
-
+  const { role } = useUserVerification();
   const handleLogOut = async () => {
     try {
       await logOut();
@@ -14,17 +15,59 @@ const SideBar = ({ isOpen }) => {
   };
   return (
     <div
-    className={`z-40  flex flex-col justify-between overflow-x-hidden text-white bg-[#2F4F4F] w-64 md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
-        isOpen && '-translate-x-full'
+      className={`z-40  flex flex-col justify-between overflow-x-hidden text-white bg-[#2F4F4F] w-64 md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
+        isOpen && "-translate-x-full"
       }  md:translate-x-0  transition duration-200 ease-in-out`}
     >
       <div className="">
         <h1 className="text-center font-bold text-2xl">Teach-Tools</h1>
         <div className="menu">
           <ul className="ul space-y-2">
-            <Menu link="/Dashboard" RouteName="My Profile"></Menu>
-            <Menu link="/Dashboard/AddProduct" RouteName="Add Product"></Menu>
-            <Menu link="/Dashboard/MyProducts" RouteName="My Products"></Menu>
+            {/* this route for user role */}
+            {role?.role === "user" && (
+              <>
+                <Menu link="/Dashboard" RouteName="My Profile"></Menu>
+                <Menu
+                  link="/Dashboard/AddProduct"
+                  RouteName="Add Product"
+                ></Menu>
+                <Menu
+                  link="/Dashboard/MyProducts"
+                  RouteName="My Products"
+                ></Menu>
+              </>
+            )}
+            {/* this route for Moderator */}
+            {role?.role === "user" && (
+              <>
+                <Menu
+                  RouteName="Product Review Queue"
+                  link="/Dashboard/ProductReviewQueue"
+                ></Menu>
+                <Menu
+                  RouteName="Reported Contents"
+                  link="/Dashboard/ReportedContents"
+                ></Menu>
+              </>
+            )}
+
+            {/* this route for admin role */}
+            {role?.role === "user" && (
+              <>
+                <Menu
+                  RouteName="Statistics"
+                  link="/Dashboard/Statistics"
+                ></Menu>
+                <Menu
+                  RouteName="Manage Users"
+                  link="/Dashboard/ManageUsers"
+                ></Menu>
+                <Menu
+                  RouteName="Manage Coupons"
+                  link="/Dashboard/ManageCoupons"
+                ></Menu>
+              </>
+            )}
           </ul>
         </div>
         <div className="divider">OR</div>
