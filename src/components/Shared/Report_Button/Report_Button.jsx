@@ -5,11 +5,11 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 
-const Report_Button = ({ product, user,warningToast }) => {
+const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
 
-  const { data: reports = [], isFetching,refetch} = useQuery({
+  const { data: reports = [], refetch} = useQuery({
     queryKey: ["reports"],
     enabled:!!user?.email,
     queryFn: async () => {
@@ -17,11 +17,14 @@ const Report_Button = ({ product, user,warningToast }) => {
       return data;
     },
   });
+  
   const reportId = reports.find(report=> report?.product._id === product?._id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(reportId) return warningToast("Already Report It");
+    refetch();
+    if(ownerEmail === user?.email) return warningToast("Something Wrong");
+    if(reportId ) return warningToast("Already Report It");
     const report = e?.target?.report?.value || "";
     const reporterEmail = user?.email;
     const info = { product, reporterEmail, report };

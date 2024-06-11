@@ -27,7 +27,7 @@ const Trending_Products = () => {
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
        {
-        trendingProducts.map(product=> <Trending_Product_Card key={product._id} product={product} refetch={refetch}></Trending_Product_Card>)
+        trendingProducts.map(product=> <Trending_Product_Card key={product._id} product={product} refetch={refetch}ownerEmail={product.ownerEmail}></Trending_Product_Card>)
        }
       </div>
       <div className="flex justify-center my-10">

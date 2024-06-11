@@ -4,29 +4,38 @@ const Profile = () => {
   const { user } = useAuth();
   //   console.log(user);
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
-      <div className="w-full h-64 flex flex-col justify-center items-center bg-gray-300 bg-center bg-cover rounded-lg shadow-md">
-        <div className="">
-          <img src={user.photoURL} alt="" className="rounded-full w-32 border-violet-500 border-4 " />
-        </div>
-        <p>{user.email}</p>
-      </div>
+    <section className="bg-[#001f3f]">
+      <div className="max-w-6xl px-6 py-10 mx-auto">
+        <p className="text-xl font-medium text-blue-500"> <span>User</span> Profile</p>
 
-      <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
-        <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-          {user.displayName}
-        </h3>
+        <main className="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
+          <div className="absolute w-full bg-[#2F4F4F] -z-10 md:h-96 top-24 rounded-2xl"></div>
 
-        <div className="flex items-center justify-between px-3 py-2 bg-gray-200 dark:bg-gray-700">
-          <span className="font-bold text-gray-800 dark:text-gray-200">
-            Change Role
-          </span>
-          <button className="px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">
-            Click
-          </button>
-        </div>
+          <div className="w-full top-24 p-6 bg-blue-600 md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
+            <img
+              className="h-24 w-24 lg:h-44 lg:w-44 md:mx-6 rounded-full object-cover  shadow-md md:rounded-2xl"
+              src={user?.photoURL}
+              alt=""
+            />
+
+            <div className="mt-2 md:mx-6 ">
+              <div>
+                <h1 className="text-xl font-medium tracking-tight text-white">
+                  {user.displayName}
+                </h1>
+                <p className="text-blue-200">{user?.email}</p>
+              </div>
+
+              <p className="mt-14 text-lg leading-relaxed text-white md:text-xl">
+                “Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Tempore quibusdam ducimus libero ad tempora doloribus expedita
+                laborum saepe voluptas perferendis delectus assumenda”.
+              </p>
+            </div>
+          </div>
+        </main>
       </div>
-    </div>
+    </section>
   );
 };
 

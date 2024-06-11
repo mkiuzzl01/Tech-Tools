@@ -37,7 +37,7 @@ const Product_Details = () => {
     },
   });
 
-  const { data:userReviews = [] } = useQuery({
+  const { data: userReviews = [] } = useQuery({
     queryKey: ["reviews"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/product-review");
@@ -55,6 +55,7 @@ const Product_Details = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(product.ownerEmail === user?.email) return warningToast("Something Wrong");
     if (reviewsId) {
       return warningToast("Already Review Submitted");
     }
@@ -132,11 +133,13 @@ const Product_Details = () => {
 
                 <div className="flex space-x-4 mt-4">
                   <UpVote_Button
+                    ownerEmail={product?.ownerEmail}
                     vote={product.vote}
                     id={product._id}
                     refetch={refetch}
                   ></UpVote_Button>
                   <Report_Button
+                    ownerEmail={product?.ownerEmail}
                     product={product}
                     user={user}
                     warningToast={warningToast}
@@ -220,7 +223,7 @@ const Product_Details = () => {
                     </div>
 
                     <div className="flex justify-end mt-6">
-                      <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                      <button  className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                         Submit
                       </button>
                     </div>

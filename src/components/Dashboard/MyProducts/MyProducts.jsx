@@ -54,7 +54,7 @@ const MyProducts = () => {
     }
   };
   return (
-    <div>
+    <div className="bg-[#001f3f] text-[rgba(240,240,240,0.82)] rounded-lg">
       <Helmet>
         <title>Nearby Care | Manage Appointment</title>
       </Helmet>
@@ -71,12 +71,12 @@ const MyProducts = () => {
             {/* head */}
             <thead>
               <tr>
-                <th>SL</th>
-                <th>Product Info</th>
-                <th>Number of votes</th>
-                <th>Status</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th className="text-orange-400">SL</th>
+                <th className="text-orange-400">Product Info</th>
+                <th className="text-orange-400">Number of votes</th>
+                <th className="text-orange-400">Status</th>
+                <th className="text-orange-400">Description</th>
+                <th className="text-orange-400">Actions</th>
               </tr>
             </thead>
             <tbody>

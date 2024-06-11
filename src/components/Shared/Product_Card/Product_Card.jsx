@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
+import UpVote_Button from "../UpVote_Button/UpVote_Button";
 
-const Featured_Products_Card = ({ product,refetch}) => {
+const Product_Card = ({ product,refetch,ownerEmail}) => {
   return (
     <div>
       <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 shadow-xl">
@@ -29,7 +29,7 @@ const Featured_Products_Card = ({ product,refetch}) => {
             ))}
           </div>
           <div className="card-actions justify-end">
-            <UpVote_Button vote={product.vote} id={product._id} refetch={refetch}></UpVote_Button>
+            <UpVote_Button vote={product.vote} id={product._id} refetch={refetch} ownerEmail={ownerEmail}></UpVote_Button>
           </div>
         </div>
       </div>
@@ -37,9 +37,10 @@ const Featured_Products_Card = ({ product,refetch}) => {
   );
 };
 
-Featured_Products_Card.propTypes = {
+Product_Card.propTypes = {
   product: PropTypes.object,
   refetch:PropTypes.func,
+  ownerEmail:PropTypes.string,
 };
 
-export default Featured_Products_Card;
+export default Product_Card;

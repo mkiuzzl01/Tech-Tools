@@ -106,7 +106,7 @@ const AddProducts = () => {
 
   return (
     <div>
-      <div className="max-w-4xl m-auto border-2 rounded-lg p-4 bg-sky-600">
+      <div className="max-w-4xl m-auto border-2 rounded-lg p-4 bg-[#20282b]">
         <Helmet>
           <title>Tech-Tools | Add Product </title>
         </Helmet>
@@ -232,7 +232,7 @@ const AddProducts = () => {
             </div>
             <div className="my-8">
               <div className="lg:col-span-2">
-                <button className="btn hover:bg-[#004d99] w-full border-none bg-[#7fb800] dark:hover:text-white">
+                <button className="btn hover:bg-[#004d99] w-full border-none bg-[#3CB371] dark:hover:text-white">
                   {adding ? (
                     <GiOilySpiral className="animate-spin text-2xl text-red-400" />
                   ) : (

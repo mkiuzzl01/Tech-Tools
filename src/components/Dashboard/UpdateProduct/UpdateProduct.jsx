@@ -107,7 +107,7 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
   };
 
   return (
-    <div className="relative flex justify-center">
+    <div className="relative z-50 flex justify-center">
       <div
         className="fixed inset-0 z-10 overflow-y-auto"
         aria-labelledby="modal-title"
@@ -122,7 +122,7 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
             &#8203;
           </span>
 
-          <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl dark:bg-gray-900 sm:my-8 sm:w-full max-w-4xl sm:p-6 sm:align-middle">
+          <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl bg-[#2A3439] sm:my-8 sm:w-full max-w-4xl sm:p-6 sm:align-middle">
             <h3
               className="text-2xl text-center font-medium leading-6 text-gray-800 capitalize dark:text-white"
               id="modal-title"
@@ -143,7 +143,7 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                 <div className="form-control">
                   <label htmlFor="productName">
-                    <span className="text-white">Product Name:</span>
+                    <span>Product Name:</span>
                   </label>
                   <input
                     required
@@ -152,12 +152,12 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
                     type="text"
                     placeholder="Product Name"
                     id="productName"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full text-gray-700"
                   />
                 </div>
                 <div className="form-control">
                   <label htmlFor="Link">
-                    <span className="text-white">Link:</span>
+                    <span>Link:</span>
                   </label>
                   <input
                     defaultValue={product?.productLink}
@@ -166,12 +166,12 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
                     type="text"
                     placeholder="Website link or landing page link of the product"
                     id="Link"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full text-gray-700"
                   />
                 </div>
                 <div className="form-control">
                   <label htmlFor="ownerName">
-                    <span className="text-white">Product Owner Name:</span>
+                    <span>Product Owner Name:</span>
                   </label>
                   <input
                     required
@@ -181,12 +181,12 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
                     disabled
                     placeholder="Product Owner Name"
                     id="ownerName"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full text-gray-700"
                   />
                 </div>
                 <div className="form-control">
                   <label htmlFor="ownerEmail">
-                    <span className="text-white">Product Owner Email:</span>
+                    <span>Product Owner Email:</span>
                   </label>
                   <input
                     required
@@ -196,12 +196,12 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
                     disabled
                     placeholder="Product Owner Email"
                     id="ownerEmail"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full text-gray-700"
                   />
                 </div>
                 <div className="form-control">
                   <label htmlFor="ownerImage">
-                    <span className="text-white">Product Owner Image:</span>
+                    <span>Product Owner Image:</span>
                   </label>
                   <input
                     required
@@ -211,25 +211,25 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
                     disabled
                     placeholder="Product Owner Image"
                     id="ownerImage"
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full text-gray-700"
                   />
                 </div>
                 <div className="form-control">
                   <label htmlFor="image">
-                    <span className="text-white">Product Image:</span>
+                    <span>Product Image:</span>
                   </label>
                   <input
                     id="image"
                     name="image"
                     accept="image/*"
                     type="file"
-                    className="file-input file-input-bordered file-input-accent w-full"
+                    className="file-input file-input-bordered file-input-accent w-full text-gray-700"
                   />
                 </div>
 
                 <div className="from-control lg:col-span-2">
                   <label htmlFor="Tags">
-                    <span className="text-white">Product Tags:</span>
+                    <span>Product Tags:</span>
                   </label>
                   <ReactTags
                     tags={tags}
@@ -243,11 +243,11 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
 
                 <div className="form-control lg:col-span-2">
                   <label htmlFor="description">
-                    <span className="text-white">Description:</span>
+                    <span>Description:</span>
                   </label>
                   <textarea
                     defaultValue={product.description}
-                    className="textarea input-bordered"
+                    className="textarea input-bordered text-gray-700"
                     name="description"
                     id="description"
                     cols="12"
@@ -257,7 +257,7 @@ const UpdateProduct = ({ setIsOpen, product, refetch }) => {
               </div>
               <div className="my-8">
                 <div className="lg:col-span-2">
-                  <button className="btn hover:bg-[#004d99] w-full border-none bg-[#7fb800] dark:hover:text-white">
+                  <button className="btn hover:bg-[#004d99] w-full border-none bg-[#3CB371] dark:hover:text-white">
                     {updating ? (
                       <GiOilySpiral className="animate-spin text-2xl text-red-400" />
                     ) : (

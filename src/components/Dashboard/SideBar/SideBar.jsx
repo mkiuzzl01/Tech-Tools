@@ -14,16 +14,17 @@ const SideBar = ({ isOpen }) => {
   };
   return (
     <div
-    className={`z-10  flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
+    className={`z-40  flex flex-col justify-between overflow-x-hidden text-white bg-[#2F4F4F] w-64 md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
         isOpen && '-translate-x-full'
       }  md:translate-x-0  transition duration-200 ease-in-out`}
     >
       <div className="">
+        <h1 className="text-center font-bold text-2xl">Teach-Tools</h1>
         <div className="menu">
           <ul className="ul space-y-2">
             <Menu link="/Dashboard" RouteName="My Profile"></Menu>
             <Menu link="/Dashboard/AddProduct" RouteName="Add Product"></Menu>
-            <Menu link="/Dashboard/MyProducts" RouteName="My Profile"></Menu>
+            <Menu link="/Dashboard/MyProducts" RouteName="My Products"></Menu>
           </ul>
         </div>
         <div className="divider">OR</div>
