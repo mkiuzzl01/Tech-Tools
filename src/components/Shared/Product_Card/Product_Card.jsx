@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import UpVote_Button from "../UpVote_Button/UpVote_Button";
 
-const Product_Card = ({ product,refetch,ownerEmail}) => {
+const Product_Card = ({ product,refetch,ownerEmail,productCard}) => {
   return (
     <div>
       <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 shadow-xl">
@@ -10,7 +10,7 @@ const Product_Card = ({ product,refetch,ownerEmail}) => {
           <img
             src={product.productImage}
             alt={product.productName}
-            className="w-full h-40"
+            className={`${productCard ? 'w-36 h-36' : 'w-full h-40'}`}
           />
         </figure>
         <div className="card-body">
@@ -19,18 +19,20 @@ const Product_Card = ({ product,refetch,ownerEmail}) => {
               {product.productName}
             </h2>
           </Link>
-          <div className="flex flex-row ">
+        <div className="flex flex-row">
             {product?.productTags.map((tag, idx) => (
               <p className="" key={idx}>
-                <span className="bg-yellow-400 text-sm rounded-lg">
+                <span className="bg-yellow-400 text-sm rounded-lg p-1">
                   {tag}
                 </span>
               </p>
             ))}
           </div>
+          
           <div className="card-actions justify-end">
-            <UpVote_Button vote={product.vote} id={product._id} refetch={refetch} ownerEmail={ownerEmail}></UpVote_Button>
+            <UpVote_Button  vote={product.vote} id={product._id} refetch={refetch} ownerEmail={ownerEmail}></UpVote_Button>
           </div>
+          
         </div>
       </div>
     </div>
@@ -41,6 +43,7 @@ Product_Card.propTypes = {
   product: PropTypes.object,
   refetch:PropTypes.func,
   ownerEmail:PropTypes.string,
+  productCard:PropTypes.bool,
 };
 
 export default Product_Card;

@@ -5,9 +5,10 @@ import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 
 const Products = () => {
+    const productCard = true;
   const axiosPublic = useAxiosPublic();
   const [products, setProduct] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const [count, setCount] = useState(0);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,10 +78,11 @@ const Products = () => {
 
       <h1>This is Product Page</h1>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
         {products.map((product) => (
           <Product_Card
             key={product._id}
+            productCard={productCard}
             ownerEmail={product.ownerEmail}
             product={product}
           ></Product_Card>
