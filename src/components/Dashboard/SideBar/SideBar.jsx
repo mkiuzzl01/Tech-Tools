@@ -38,8 +38,9 @@ const SideBar = ({ isOpen }) => {
               </>
             )}
             {/* this route for Moderator */}
-            {role?.role === "user" && (
+            {role?.role === "Moderator" && (
               <>
+                <Menu link="/Dashboard" RouteName="My Profile"></Menu>
                 <Menu
                   RouteName="Product Review Queue"
                   link="/Dashboard/ProductReviewQueue"
@@ -52,8 +53,9 @@ const SideBar = ({ isOpen }) => {
             )}
 
             {/* this route for admin role */}
-            {role?.role === "user" && (
+            {role?.role === "Admin" && (
               <>
+              <Menu link="/Dashboard" RouteName="My Profile"></Menu>
                 <Menu
                   RouteName="Statistics"
                   link="/Dashboard/Statistics"

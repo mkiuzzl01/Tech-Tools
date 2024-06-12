@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-  // return console.log(product);
   const { data: reports = [], refetch} = useQuery({
     queryKey: ["reports"],
     enabled:!!user?.email,
@@ -32,7 +31,7 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
 
     try {
       const { data } = await axiosSecure.post("/reported-products", info);
-      if (data.insertedId) {
+      if (data.insertedId > 0) {
         Swal.fire({
           position: "center",
           icon: "success",
@@ -43,7 +42,8 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
         setIsOpen(false);
       }
     } catch (error) {
-      console.log(error.message);
+      setIsOpen(false);
+      warningToast(error?.response?.data || 'Something Wrong');
     }
   };
   return (

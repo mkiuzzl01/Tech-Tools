@@ -12,9 +12,15 @@ const ReportedContents = () => {
             return data;
         }
     })
-    console.log(data);
-    const handleDelete = (id)=>{
+    // console.log(data);
+    const handleDelete = async(id)=>{
         console.log(id);
+        try {
+          const {data} = await axiosSecure.delete(`/reported-product-delete/${id}`)
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
     }
     return (
         <div className="bg-[#001f3f] text-[rgba(240,240,240,0.82)] rounded-lg">

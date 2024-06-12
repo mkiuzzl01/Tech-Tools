@@ -17,7 +17,11 @@ const Product_Details = () => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
-  const { data: product = {}, isLoading, refetch } = useQuery({
+  const {
+    data: product = {},
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["Product_Details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/Product-Details/${id}`);
@@ -25,9 +29,8 @@ const Product_Details = () => {
     },
   });
 
-  
-  const { data: userReviews = [] , isFetching,} = useQuery({
-    enabled:!!id,
+  const { data: userReviews = [], isFetching } = useQuery({
+    enabled: !!id,
     queryKey: ["reviews"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/review-products/${id}`);
@@ -35,15 +38,11 @@ const Product_Details = () => {
     },
   });
 
- 
-
-
-  if (isFetching || isLoading ) return <Loading></Loading>;
+  if (isLoading || isFetching) return <Loading></Loading>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(product.ownerEmail === user?.email) return warningToast("Something Wrong");
-   
+
     const form = e.target;
     const reviewerName = form?.ReviewerName.value;
     const reviewerEmail = user?.email;
@@ -58,11 +57,10 @@ const Product_Details = () => {
       productRating,
       ...{ product },
     };
-    // console.log(review);
-
-    //send to database review product information
+    
     try {
       const { data } = await axiosSecure.post("/product-review", review);
+      console.log(data);
       if (data.insertedId) {
         Swal.fire({
           position: "center",
@@ -71,12 +69,10 @@ const Product_Details = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-
-      } else{
-        warningToast("Already Review Submitted");
       }
     } catch (error) {
-      // console.log(error.message);
+      warningToast(error?.response?.data);
+      // console.log(error?.response?.data);
     }
   };
 
@@ -210,7 +206,7 @@ const Product_Details = () => {
                     </div>
 
                     <div className="flex justify-end mt-6">
-                      <button  className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                      <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                         Submit
                       </button>
                     </div>
