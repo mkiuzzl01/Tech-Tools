@@ -1,45 +1,36 @@
-import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Product_Card from "../../Shared/Product_Card/Product_Card";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 const Products = () => {
-    const productCard = true;
+  const productCard = true;
   const axiosPublic = useAxiosPublic();
-  const [products, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(6);
-  const [count, setCount] = useState(0);
+  const [totalDocuments, setTotalDocuments] = useState(0);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axiosPublic.get(`/products?search=${search}&page=${currentPage}&size=${itemsPerPage}`);
-      setProduct(data);
+      const { data } = await axiosPublic.get(
+        `/products-search?search=${search}&page=${currentPage}&size=${itemsPerPage}`
+      );
+      setProducts(data.data);
+      setTotalDocuments(data.totalDocuments);
     };
     getData();
-  }, [itemsPerPage,currentPage,search,axiosPublic]);
-
-
-  useEffect(() => {
-    const getCount = async () => {
-      const { data } = await axiosPublic.get(`/products-count?search=${search}`);
-      setCount(data.numbers);
-    };
-    getCount();
-  }, [search,axiosPublic]);
-
-
-  //   console.log(product_count);
+  }, [itemsPerPage, currentPage, search, axiosPublic]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const search = e.target.value;
-    setSearch(search);
+    setSearch(e.target.value);
+    setCurrentPage(1); // Reset to first page on new search
   };
 
-  const numberOfPages = Math.ceil(count/itemsPerPage);
+  const numberOfPages = Math.ceil(totalDocuments / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()].map((element) => element + 1);
 
   const handlePagination = (value) => {
@@ -88,14 +79,15 @@ const Products = () => {
           ></Product_Card>
         ))}
       </div>
+
       {/* pagination */}
       <div className="text-center my-20 space-x-4">
         <button
-            disabled={currentPage === 1}
-            onClick={() => handlePagination(currentPage - 1)}
+          disabled={currentPage === 1}
+          onClick={() => handlePagination(currentPage - 1)}
           className="btn items-center"
         >
-          <span>{/* <FaArrowLeftLong className="text-blue-400 " /> */}</span>
+          <span><FaArrowLeftLong className="text-blue-400 " /></span>
           <span>Prev</span>
         </button>
         {pages.map((page) => (
@@ -108,12 +100,12 @@ const Products = () => {
           </button>
         ))}
         <button
-            disabled={currentPage === numberOfPages}
-            onClick={() => handlePagination(currentPage + 1)}
+          disabled={currentPage === numberOfPages}
+          onClick={() => handlePagination(currentPage + 1)}
           className="btn items-center"
         >
           <span>Next</span>
-          <span>{/* <FaArrowRightLong className="text-blue-400 " /> */}</span>
+          <span><FaArrowRightLong className="text-blue-400 " /></span>
         </button>
       </div>
     </div>
