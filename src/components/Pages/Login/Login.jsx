@@ -48,8 +48,7 @@ const Login = () => {
     useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  // setLoading(false);
-  console.log(loading);
+
 
   useEffect(() => {
     loadCaptchaEnginge(6);
