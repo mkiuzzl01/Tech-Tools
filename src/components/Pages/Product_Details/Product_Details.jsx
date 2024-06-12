@@ -8,7 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { CiStar } from "react-icons/ci";
 import Swal from "sweetalert2";
-import ReviewSlider from "../../Slider/ReviewSlider/ReviewSlider";
+import ProductReview from "../../Section/ProductReview/ProductReview";
 
 const Product_Details = () => {
   const { user, warningToast } = useAuth();
@@ -20,7 +20,6 @@ const Product_Details = () => {
   const {
     data: product = {},
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: ["Product_Details"],
     queryFn: async () => {
@@ -29,7 +28,7 @@ const Product_Details = () => {
     },
   });
 
-  const { data: userReviews = [], isFetching } = useQuery({
+  const { data: userReviews = [], isFetching, refetch } = useQuery({
     enabled: !!id,
     queryKey: ["reviews"],
     queryFn: async () => {
@@ -38,11 +37,12 @@ const Product_Details = () => {
     },
   });
 
+  // console.log(...userReviews);
+
   if (isLoading || isFetching) return <Loading></Loading>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const form = e.target;
     const reviewerName = form?.ReviewerName.value;
     const reviewerEmail = user?.email;
@@ -57,11 +57,12 @@ const Product_Details = () => {
       productRating,
       ...{ product },
     };
-    
+
     try {
       const { data } = await axiosSecure.post("/product-review", review);
-      console.log(data);
+      // console.log(data);
       if (data.insertedId) {
+        refetch();
         Swal.fire({
           position: "center",
           icon: "success",
@@ -78,13 +79,10 @@ const Product_Details = () => {
 
   return (
     <div>
-      <div>
-        <ReviewSlider userReviews={userReviews}></ReviewSlider>
-      </div>
       <div className="py-10">
         <div className="flex flex-col items-center lg:flex-row">
           <div className="lg:w-1/2">
-            <div className="overflow-hidden rounded-lg  border-2 max-w-xl">
+            <div className="overflow-hidden rounded-lg p-4 border-2 max-w-xl">
               <div className="flex justify-center">
                 <img src={product.productImage} alt="" />
               </div>
@@ -216,6 +214,10 @@ const Product_Details = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <h1 className="text-center">Product Reviews</h1>
+        <ProductReview userReviews={userReviews}></ProductReview>
       </div>
     </div>
   );

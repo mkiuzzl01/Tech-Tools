@@ -6,6 +6,7 @@ import { FiDelete, FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
 import UpdateProduct from "../UpdateProduct/UpdateProduct";
 import { useState } from "react";
+import Loading from "../../Shared/Loading/Loading";
 
 const MyProducts = () => {
   const { user, errorToast } = useAuth();
@@ -20,7 +21,8 @@ const MyProducts = () => {
       return data;
     },
   });
-  // console.log(products);
+
+  if (isLoading) return <Loading></Loading>
 
   const handleDelete = (_id) => {
     try {
@@ -54,12 +56,12 @@ const MyProducts = () => {
     }
   };
   return (
-    <div className="bg-[#001f3f] text-[rgba(240,240,240,0.82)] rounded-lg">
+    <div className="rounded-lg">
       <Helmet>
-        <title>Nearby Care | Manage Appointment</title>
+        <title>Tech-Tools | My Product</title>
       </Helmet>
       {products.length > 0 ? (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto bg-[#001f3f] text-[rgba(240,240,240,0.82)] ">
           <h1 className="text-2xl font-bold text-center my-4">
             All Product Information
           </h1>

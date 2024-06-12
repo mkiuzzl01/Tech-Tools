@@ -66,9 +66,6 @@ const Products = () => {
           </svg>
         </label>
       </div>
-
-      <h1>This is Product Page</h1>
-
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
         {products.map((product) => (
           <Product_Card

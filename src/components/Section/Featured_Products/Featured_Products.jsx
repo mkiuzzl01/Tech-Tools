@@ -20,7 +20,8 @@ const Featured_Products = () => {
       <div className="flex justify-center">
         <Section_Title
           title="Featured-Products"
-          sub_title="Those products recently posted"
+          sub_title="Discover Our Top Tech Tools"
+          paragraph="Our featured products section highlights the most sought-after tech tools that are making waves in the industry. From powerful software solutions to innovative hardware, these products are chosen for their ability to deliver exceptional results and streamline your daily tasks. Upgrade your toolkit with our top picks."
         ></Section_Title>
       </div>
       <div className="my-10 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">

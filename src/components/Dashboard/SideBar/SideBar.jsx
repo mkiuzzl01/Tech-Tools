@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import useAuth from "../../../hooks/useAuth";
 import Menu from "../../Shared/Menu/Menu";
 import useUserVerification from "../../../hooks/useUserVerification";
+import { BiLogOutCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const SideBar = ({ isOpen }) => {
   const { logOut } = useAuth();
@@ -20,7 +22,9 @@ const SideBar = ({ isOpen }) => {
       }  md:translate-x-0  transition duration-200 ease-in-out`}
     >
       <div className="">
-        <h1 className="text-center font-bold text-2xl">Teach-Tools</h1>
+      <div className="flex justify-center"><Link to="/" className="">
+            <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="" className=" w-24 lg:w-32" />
+          </Link></div>
         <div className="menu">
           <ul className="ul space-y-2">
             {/* this route for user role */}
@@ -72,7 +76,7 @@ const SideBar = ({ isOpen }) => {
             )}
           </ul>
         </div>
-        <div className="divider">OR</div>
+        <div className="divider divider-accent">OR</div>
         <div className="menu">
           <ul className="ul space-y-2">
             <Menu link="/" RouteName="Home"></Menu>
@@ -85,7 +89,7 @@ const SideBar = ({ isOpen }) => {
           <ul>
             <li>
               <button onClick={handleLogOut} className="btn btn-sm">
-                LogOut
+              <BiLogOutCircle className="text-2xl text-red-600" /> LogOut
               </button>
             </li>
           </ul>

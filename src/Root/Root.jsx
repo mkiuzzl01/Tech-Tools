@@ -7,10 +7,10 @@ const Root = () => {
   return (
     <div>
       <div className="max-w-screen-xl m-auto">
-        <header>
+        <header className="sticky top-0 z-10">
           <Navbar></Navbar>
         </header>
-        <main className="min-h-[calc(100vh-288px)]">
+        <main className="min-h-[calc(100vh-288px)] px-2">
           <Outlet></Outlet>
         </main>
       </div>

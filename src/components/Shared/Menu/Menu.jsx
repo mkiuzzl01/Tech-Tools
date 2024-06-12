@@ -8,10 +8,10 @@ const Menu = ({ link, RouteName }) => {
       end
         to={link}
         className={({ isActive }) =>
-          `flex items-center transition-colors duration-300 transform  hover:bg-gray-300 text-white   hover:text-gray-700 ${
-            isActive ? "bg-gray-300" : ""
-          }`
-        }
+       isActive
+         ? "border-b-2 rounded-lg text-[#f1f141] p-2"
+         : " hover:border-gray-300 hover:border-t-2 rounded-lg"
+     }
       >
         {RouteName}
       </NavLink>

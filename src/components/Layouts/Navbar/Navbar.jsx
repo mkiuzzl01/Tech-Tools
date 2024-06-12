@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdLogOut } from "react-icons/io";
 
@@ -18,12 +18,20 @@ const Navbar = () => {
 
   const navLink = (
     <>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/Products">Products</Link>
-      </li>
+      <NavLink
+       className={({ isActive }) =>
+       isActive
+         ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
+         : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
+     }
+       to="/">Home</NavLink>
+      <NavLink
+       className={({ isActive }) =>
+       isActive
+         ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
+         : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
+     }
+       to="/Products">Products</NavLink>
     </>
   );
 
@@ -55,12 +63,12 @@ const Navbar = () => {
               {navLink}
             </ul>
           </div>
-          <Link to="/" className="text-3xl font-semibold">
-            Tech-Tools
+          <Link to="/" className="">
+            <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="" className=" w-24 lg:w-32" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navLink}</ul>
+          <ul className="menu menu-horizontal px-1 space-x-4">{navLink}</ul>
         </div>
         <div className="navbar-end space-x-2">
           {user ? (
@@ -104,7 +112,7 @@ const Navbar = () => {
                         ? user.displayName
                         : "Username Not Found"}
                     </h4>
-                    <Link to='/Dashboard'>
+                    <Link to="/Dashboard">
                       <button className="btn btn-sm w-full">Dashboard</button>
                     </Link>
                     <button

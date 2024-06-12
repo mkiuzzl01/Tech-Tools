@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
+  
   const { data: reports = [], refetch} = useQuery({
     queryKey: ["reports"],
     enabled:!!user?.email,
@@ -21,7 +22,6 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    refetch();
     if(ownerEmail === user?.email) return warningToast("Something Wrong");
     if(reportId ) return warningToast("Already Report It");
 
@@ -32,6 +32,7 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
     try {
       const { data } = await axiosSecure.post("/reported-products", info);
       if (data.insertedId > 0) {
+        refetch();
         Swal.fire({
           position: "center",
           icon: "success",
