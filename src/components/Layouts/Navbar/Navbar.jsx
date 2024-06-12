@@ -119,7 +119,7 @@ const Navbar = () => {
                       onClick={handleLogOut}
                       className="btn btn-sm w-full"
                     >
-                      <IoMdLogOut />
+                      <IoMdLogOut className="text-orange-600 text-xl" />
                       Logout
                     </button>
                   </div>

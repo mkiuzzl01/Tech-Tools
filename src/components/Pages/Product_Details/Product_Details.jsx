@@ -78,7 +78,7 @@ const Product_Details = () => {
   };
 
   return (
-    <div>
+    <div className="py-10">
       <div className="py-10">
         <div className="flex flex-col items-center lg:flex-row">
           <div className="lg:w-1/2">
