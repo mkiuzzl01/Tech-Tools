@@ -3,35 +3,23 @@ import { useState } from "react";
 import { MdReportGmailerrorred } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useQuery } from "@tanstack/react-query";
 
-const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
+const Report_Button = ({ product, user,warningToast,refetch}) => {
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
   
-  const { data: reports = [], refetch} = useQuery({
-    queryKey: ["reports"],
-    enabled:!!user?.email,
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(`/product-report/${user?.email}`);
-      return data;
-    },
-  });
-  
-  const reportId = reports.find(report=> report?.product._id === product?._id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(ownerEmail === user?.email) return warningToast("Something Wrong");
-    if(reportId ) return warningToast("Already Report It");
-
+    
     const report = e?.target?.report?.value || "";
     const reporterEmail = user?.email;
     const info = { product, reporterEmail, report };
 
     try {
-      const { data } = await axiosSecure.post("/reported-products", info);
-      if (data.insertedId > 0) {
+      const { data } = await axiosSecure.post("/reports", info);
+      // console.log(data);
+      if (data.insertedId ||data.modifiedCount>0) {
         refetch();
         Swal.fire({
           position: "center",
@@ -43,6 +31,7 @@ const Report_Button = ({ product, user,warningToast,ownerEmail}) => {
         setIsOpen(false);
       }
     } catch (error) {
+      // console.log(error);
       setIsOpen(false);
       warningToast(error?.response?.data || 'Something Wrong');
     }
@@ -191,6 +180,7 @@ Report_Button.propTypes = {
   user: PropTypes.object,
   warningToast:PropTypes.func,
   ownerEmail:PropTypes.string,
+  refetch:PropTypes.func,
 };
 
 export default Report_Button;

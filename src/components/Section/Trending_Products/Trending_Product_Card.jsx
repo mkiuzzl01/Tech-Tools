@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 const Trending_Product_Card = ({product,refetch,ownerEmail}) => {
   return (
-      <div className="card card-compact  bg-base-100 shadow-xl">
+      <div className="card card-compact bg-base-100 shadow-xl">
         <figure>
           <img
             src={product.productImage}
             alt={product.productName}
-            className="w-full h-48"
+            className="w-auto h-52"
           />
         </figure>
         <div className="card-body">
@@ -16,7 +16,7 @@ const Trending_Product_Card = ({product,refetch,ownerEmail}) => {
           <div className="flex flex-row ">
             {product?.productTags.map((tag, idx) => (
               <p className="" key={idx}>
-                <span className="bg-yellow-400 text-sm rounded-lg">{tag}</span>
+                <span className="bg-yellow-200 p-1 text-sm rounded-lg">{tag}</span>
               </p>
             ))}
           </div>

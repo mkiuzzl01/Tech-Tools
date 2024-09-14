@@ -68,7 +68,7 @@ const Login = () => {
         const { email, password } = values;
         const userInfo = { email, password };
 
-        console.log(userInfo);
+        // console.log(userInfo);
 
         try {
           await logInUser(email, password);

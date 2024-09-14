@@ -3,8 +3,12 @@ import Product_Card from "../../Shared/Product_Card/Product_Card";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import useAuth from "../../../hooks/useAuth";
+import Loading from "../../Shared/Loading/Loading";
+import { CiSearch } from "react-icons/ci";
 
 const Products = () => {
+  const { loading, setLoading } = useAuth();
   const productCard = true;
   const axiosPublic = useAxiosPublic();
   const [products, setProducts] = useState([]);
@@ -15,9 +19,11 @@ const Products = () => {
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const { data } = await axiosPublic.get(
         `/products-search?search=${search}&page=${currentPage}&size=${itemsPerPage}`
       );
+      setLoading(false);
       setProducts(data.data);
       setTotalDocuments(data.totalDocuments);
     };
@@ -26,7 +32,10 @@ const Products = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
+    const form = e.target;
+    const key = form.search.value;
+    form.reset();
+    setSearch(key);
     setCurrentPage(1); // Reset to first page on new search
   };
 
@@ -37,74 +46,81 @@ const Products = () => {
     setCurrentPage(value);
   };
 
+  if (loading) return <Loading></Loading>;
+
   return (
     <div>
       <Helmet>
         <title>Tech-Tools | Products </title>
       </Helmet>
-
-      <div className="my-4">
-        <label className="input lg:w-1/2 input-bordered flex items-center gap-2">
-          <input
-            onChange={handleSearch}
-            type="text"
-            className="grow"
-            name="key"
-            placeholder="Search"
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="w-4 h-4 opacity-70"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
+      <form onSubmit={handleSearch}>
+        <div className="my-4">
+          <div className="flex">
+            <input
+              className="input input-bordered rounded-e rounded-3xl w-full"
+              placeholder="Search here..."
+              name="search"
             />
-          </svg>
-        </label>
-      </div>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-        {products.map((product) => (
-          <Product_Card
-            key={product._id}
-            productCard={productCard}
-            ownerEmail={product.ownerEmail}
-            product={product}
-          ></Product_Card>
-        ))}
-      </div>
+            <button className="btn join-item rounded-r-full">
+              <span>
+                <CiSearch className="text-xl" />
+              </span>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      {products.length > 0 ? (
+        <div>
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+            {products.map((product) => (
+              <Product_Card
+                key={product._id}
+                productCard={productCard}
+                ownerEmail={product.ownerEmail}
+                product={product}
+              ></Product_Card>
+            ))}
+          </div>
 
-      {/* pagination */}
-      <div className="text-center my-20 space-x-4">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => handlePagination(currentPage - 1)}
-          className="btn items-center"
-        >
-          <span><FaArrowLeftLong className="text-blue-400 " /></span>
-          <span>Prev</span>
-        </button>
-        {pages.map((page) => (
-          <button
-            className={currentPage === page ? " btn bg-green-500" : "btn"}
-            onClick={() => handlePagination(page)}
-            key={page}
-          >
-            {page}
-          </button>
-        ))}
-        <button
-          disabled={currentPage === numberOfPages}
-          onClick={() => handlePagination(currentPage + 1)}
-          className="btn items-center"
-        >
-          <span>Next</span>
-          <span><FaArrowRightLong className="text-blue-400 " /></span>
-        </button>
-      </div>
+          {/* pagination */}
+          <div className="text-center my-20 space-x-4">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => handlePagination(currentPage - 1)}
+              className="btn items-center"
+            >
+              <span>
+                <FaArrowLeftLong className="text-blue-400 " />
+              </span>
+              <span>Prev</span>
+            </button>
+            {pages.map((page) => (
+              <button
+                className={currentPage === page ? " btn bg-green-500" : "btn"}
+                onClick={() => handlePagination(page)}
+                key={page}
+              >
+                {page}
+              </button>
+            ))}
+            <button
+              disabled={currentPage === numberOfPages}
+              onClick={() => handlePagination(currentPage + 1)}
+              className="btn items-center"
+            >
+              <span>Next</span>
+              <span>
+                <FaArrowRightLong className="text-blue-400 " />
+              </span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className="text-center text-6xl pt-32">Empty</h1>
+        </div>
+      )}
     </div>
   );
 };

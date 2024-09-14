@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+
   return (
     <div>
       <footer className="bg-gray-900">
@@ -73,7 +74,7 @@ const Footer = () => {
         <hr className="my-6 border-gray-200 md:my-10 dark:border-gray-700" />
 
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-            <p className="text-sm text-gray-500 dark:text-gray-300">© Copyright 2021. All Rights Reserved.</p>
+            <p className="text-sm text-gray-500 dark:text-gray-300">© Copyright 2024. All Rights Reserved Tech-Tools.</p>
 
             <div className="flex -mx-2">
                 <a href="#" className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit">

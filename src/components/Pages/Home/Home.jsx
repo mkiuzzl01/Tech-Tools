@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import About from "../../Section/About/About";
 import Banner from "../../Section/Banner/Banner";
 import Contact from "../../Section/Contact/Contact";
@@ -7,6 +8,9 @@ import Trending_Products from "../../Section/Trending_Products/Trending_Products
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Tech-Tools | Home</title>
+      </Helmet>
       <div>
         {/* TODO:Banner Section */}
         <Banner></Banner>

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PieChart, Pie, Cell, Legend } from "recharts";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../Shared/Loading/Loading";
+import { Helmet } from "react-helmet-async";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -46,6 +47,9 @@ const StatisticsPage = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Tech-Tools | Statistics</title>
+      </Helmet>
       <h1 className="text-center py-10 text-3xl font-bold">Data Statistics</h1>
       <div className="flex justify-center">
         <PieChart width={400} height={400}>

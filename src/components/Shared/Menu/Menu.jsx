@@ -9,7 +9,7 @@ const Menu = ({ link, RouteName }) => {
         to={link}
         className={({ isActive }) =>
        isActive
-         ? " text-[#f1f141] p-2"
+         ? " text-[#f1f141]"
          : " hover:text-green-400 rounded-lg"
      }
       >

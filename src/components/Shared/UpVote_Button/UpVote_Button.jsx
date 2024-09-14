@@ -9,14 +9,12 @@ const UpVote_Button = ({ vote, id, refetch }) => {
   const axiosSecure = useAxiosSecure();
 
   const handleVoteUp = async () => {
-    refetch();
 
     const voter = user?.email;
     try {
       const { data } = await axiosSecure.patch(`/upVote/${id}`, { voter });
-      console.log(data);
+      // console.log(data);
       if (data.modifiedCount > 0) {
-        refetch();
         Swal.fire({
           position: "center",
           icon: "success",
@@ -24,10 +22,11 @@ const UpVote_Button = ({ vote, id, refetch }) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetch();
       }
     } catch (error) {
-      warningToast(error?.response?.data || "Something Wrong");
-      console.log(error.response.data);
+      warningToast(error?.response?.data);
+      // console.log();
     }
   };
   return (

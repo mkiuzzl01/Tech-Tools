@@ -37,7 +37,7 @@ const MyProducts = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const { data } = await axiosSecure.delete(`/product-delete/${_id}`);
-          console.log(data);
+          // console.log(data);
           if (data.deletedCount > 0) {
             Swal.fire({
               position: "center",

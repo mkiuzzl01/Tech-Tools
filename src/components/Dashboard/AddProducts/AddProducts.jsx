@@ -48,6 +48,7 @@ const AddProducts = () => {
     const dateTime = Time.toLocaleString();
     const status = "pending";
     const vote = 0;
+    const voter = [];
     const description = form.description.value;
     const productTags = tags.map((tag) => tag.text);
 
@@ -77,6 +78,7 @@ const AddProducts = () => {
           dateTime,
           status,
           vote,
+          voter,
           productTags,
         };
 

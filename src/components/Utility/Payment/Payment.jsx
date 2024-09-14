@@ -21,7 +21,7 @@ const Payment = ({ setIsOpen,data,refetch }) => {
             &#8203;
           </span>
 
-          <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl bg-slate-600 sm:my-8 sm:w-full max-w-4xl sm:p-6 sm:align-middle">
+          <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl sm:my-8 sm:w-full bg-gray-600 max-w-4xl sm:p-6 sm:align-middle">
             <h3
               className="text-2xl text-center font-medium leading-6  capitalize text-white"
               id="modal-title"
@@ -30,7 +30,7 @@ const Payment = ({ setIsOpen,data,refetch }) => {
             </h3>
 
             <div className="my-12">
-              <h1 className="text-2xl font-semibold py-2">
+              <h1 className="text-2xl font-semibold text-white py-2">
                 Insert your Bank Card Number:
               </h1>
               <button

@@ -7,11 +7,12 @@ const Navbar = () => {
 
   // console.log(user);
   const handleLogOut = () => {
+    // console.log("Hello");
     try {
       logOut();
       warningToast("Logout Successful");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       errorToast("Something Wrong");
     }
   };

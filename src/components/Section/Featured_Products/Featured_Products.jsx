@@ -6,10 +6,11 @@ import Product_Card from "../../Shared/Product_Card/Product_Card";
 
 const Featured_Products = () => {
   const axiosPublic = useAxiosPublic();
+
   const { data: featuredProducts = [], isLoading,refetch } = useQuery({
     queryKey: ["Featured-Products"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/Featured-Products");
+      const {data} = await axiosPublic.get("/Featured-Products");
       return data;
     },
   });

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useUserVerification from "../../../hooks/useUserVerification";
 import { useState } from "react";
 import Payment from "../../Utility/Payment/Payment";
+import { Helmet } from "react-helmet-async";
 
 const UserProfile = () => {
   const { role } = useUserVerification();
@@ -27,6 +28,9 @@ const UserProfile = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Tech-Tools | User Profile</title>
+      </Helmet>
       <section className="bg-[#001f3f]">
         <div className="max-w-6xl px-6 py-10 mx-auto">
           <p className="text-xl font-medium text-blue-500">
@@ -40,7 +44,7 @@ const UserProfile = () => {
             <div className="w-full top-24 p-6 bg-blue-600 md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
               <img
                 className="h-24 w-24 lg:h-44 lg:w-44 md:mx-6 rounded-full object-cover  shadow-md md:rounded-2xl"
-                src={user?.photoURL}
+                src={user?.photoURL || "https://i.postimg.cc/vTN8PMKb/blank-profile-picture-973460-1280.png"}
                 alt=""
               />
 
@@ -60,8 +64,8 @@ const UserProfile = () => {
                       onClick={() => {
                         setIsOpen(true);
                       }}
-                      title="Edit"
-                      className="text-xl text-green-600"
+                      title="Please subscription"
+                      className="btn btn-sm"
                     >
                       $45 subscription
                     </button>

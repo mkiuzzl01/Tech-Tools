@@ -9,6 +9,7 @@ import { useState } from "react";
 import { CiStar } from "react-icons/ci";
 import Swal from "sweetalert2";
 import ProductReview from "../../Section/ProductReview/ProductReview";
+import { Helmet } from "react-helmet-async";
 
 const Product_Details = () => {
   const { user, warningToast } = useAuth();
@@ -59,9 +60,8 @@ const Product_Details = () => {
     };
 
     try {
-      const { data } = await axiosSecure.post("/product-review", review);
-      // console.log(data);
-      if (data.insertedId) {
+      const { data } = await axiosSecure.post("/review", review);
+      if (data.insertedId || data.modifiedCount>0) {
         refetch();
         Swal.fire({
           position: "center",
@@ -79,6 +79,9 @@ const Product_Details = () => {
 
   return (
     <div className="py-10">
+       <Helmet>
+        <title>Tech-Tools | Details</title>
+      </Helmet>
       <div className="py-10">
         <div className="flex flex-col items-center lg:flex-row">
           <div className="lg:w-1/2">
@@ -123,6 +126,7 @@ const Product_Details = () => {
                     ownerEmail={product?.ownerEmail}
                     product={product}
                     user={user}
+                    refetch={refetch}
                     warningToast={warningToast}
                   ></Report_Button>
                 </div>

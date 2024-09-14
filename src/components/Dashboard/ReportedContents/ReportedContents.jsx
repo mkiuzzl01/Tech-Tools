@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Loading from "../../Shared/Loading/Loading";
+import Swal from "sweetalert2";
 
 const ReportedContents = () => {
     const axiosSecure = useAxiosSecure();
@@ -12,16 +14,39 @@ const ReportedContents = () => {
             return data;
         }
     })
-    // console.log(data);
+
     const handleDelete = async(id)=>{
-        console.log(id);
-        try {
-          const {data} = await axiosSecure.delete(`/reported-product-delete/${id}`)
-          console.log(data);
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const {data} = await axiosSecure.delete(`/reported-product-delete/${id}`)
+            if (data?.productsList.deletedCount > 0 && data?.reportedList.deletedCount > 0) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Reported product deleted!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              refetch();
+            }
+          }
+        });
+      } catch (error) {
+        errorToast("Something wrong");
+        //   console.log(error);
+      }
     }
+
+    if(isLoading) return <Loading></Loading>;
     return (
         <div className="bg-[#001f3f] text-[rgba(240,240,240,0.82)] rounded-lg">
       <Helmet>

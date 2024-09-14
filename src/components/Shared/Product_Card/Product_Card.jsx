@@ -22,7 +22,7 @@ const Product_Card = ({ product,refetch,ownerEmail,productCard}) => {
         <div className="flex flex-row">
             {product?.productTags.map((tag, idx) => (
               <p className="" key={idx}>
-                <span className="bg-yellow-400 text-sm rounded-lg p-1">
+                <span className="text-violet-500 text-sm rounded-lg p-1">
                   {tag}
                 </span>
               </p>
