@@ -54,6 +54,9 @@
 
 =>Authentication: Firebase, jwt
 
+## Profile Access for Admin:
+=> email: admin@gmail.com => Password : 1234567Kh#
+
 ## Follow the instructions if running this project on a local machine:
 => npm install
 
