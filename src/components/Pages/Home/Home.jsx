@@ -5,7 +5,10 @@ import Contact from "../../Section/Contact/Contact";
 import Featured_Products from "../../Section/Featured_Products/Featured_Products";
 import Trending_Products from "../../Section/Trending_Products/Trending_Products";
 
-const Home = () => {
+const Home = ({bannerRef }) => {
+
+
+
   return (
     <div>
       <Helmet>

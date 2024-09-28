@@ -1,18 +1,38 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdLogOut } from "react-icons/io";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user, warningToast, logOut, errorToast } = useAuth();
+  const [isTransparent, setIsTransparent] = useState(true);
+  const location = useLocation();
 
-  // console.log(user);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsTransparent(false); 
+      } else if (location.pathname === "/") {
+        setIsTransparent(true);
+      }
+    };
+
+    if (location.pathname === "/") {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      setIsTransparent(false);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location]);
+
   const handleLogOut = () => {
-    // console.log("Hello");
     try {
       logOut();
       warningToast("Logout Successful");
     } catch (error) {
-      // console.log(error);
       errorToast("Something Wrong");
     }
   };
@@ -20,25 +40,31 @@ const Navbar = () => {
   const navLink = (
     <>
       <NavLink
-       className={({ isActive }) =>
-       isActive
-         ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
-         : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
-     }
-       to="/">Home</NavLink>
+        className={({ isActive }) =>
+          isActive
+            ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
+            : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
+        }
+        to="/"
+      >
+        Home
+      </NavLink>
       <NavLink
-       className={({ isActive }) =>
-       isActive
-         ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
-         : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
-     }
-       to="/Products">Products</NavLink>
+        className={({ isActive }) =>
+          isActive
+            ? "border-b-2 rounded-lg text-[#23BE0A] border-red-500 p-2"
+            : "p-2 hover:border-gray-600 hover:border-t-2 rounded-lg"
+        }
+        to="/Products"
+      >
+        Products
+      </NavLink>
     </>
   );
 
   return (
-    <div>
-      <div className="navbar z-10 bg-base-100">
+    <div className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ${isTransparent ? 'bg-transparent text-white' : 'bg-white text-black shadow-md'}`}>
+      <div className="navbar max-w-screen-2xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -65,7 +91,11 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="">
-            <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="" className=" w-24 lg:w-32" />
+            <img
+              src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png"
+              alt=""
+              className="w-24 lg:w-32"
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -131,9 +161,6 @@ const Navbar = () => {
             <div className="space-x-4">
               <Link to="/Login">
                 <button className="btn">Login</button>
-              </Link>
-              <Link to="/Registration">
-                <button className="btn">Registration</button>
               </Link>
             </div>
           )}

@@ -36,7 +36,7 @@ const Products = () => {
     const key = form.search.value;
     form.reset();
     setSearch(key);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
   };
 
   const numberOfPages = Math.ceil(totalDocuments / itemsPerPage);
@@ -47,6 +47,8 @@ const Products = () => {
   };
 
   if (loading) return <Loading></Loading>;
+
+
 
   return (
     <div>

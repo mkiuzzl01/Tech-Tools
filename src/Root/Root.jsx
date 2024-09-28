@@ -2,16 +2,20 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Layouts/Navbar/Navbar";
 import Footer from "../components/Layouts/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
+import { useRef } from "react";
 
 const Root = () => {
+
+  const bannerRef = useRef(null); 
+
   return (
     <div>
-      <div className="max-w-screen-xl m-auto">
+      <div className="max-w-screen-2xl m-auto px-2">
         <header className="sticky top-0 z-10">
-          <Navbar></Navbar>
+          <Navbar bannerRef={bannerRef}></Navbar>
         </header>
-        <main className="min-h-[calc(100vh-288px)] px-2">
-          <Outlet></Outlet>
+        <main className="min-h-[calc(100vh-288px)]">
+          <Outlet context={{ bannerRef }}></Outlet>
         </main>
       </div>
       <footer>
