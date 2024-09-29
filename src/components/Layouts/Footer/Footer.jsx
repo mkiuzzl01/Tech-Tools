@@ -5,31 +5,33 @@ const Footer = () => {
   return (
     <div>
       <footer className="bg-gray-900">
-    <div className="container px-6 py-8 mx-auto">
-        <div className="flex flex-col items-center text-center">
-            <div>
+    <div className="max-w-7xl py-8 mx-auto">
+        <div className="flex md:flex-row justify-between flex-col space-y-4 px-6">
+            <div className="w-2/5">
             <Link to="/" className="">
             <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="Logo" className=" w-24 lg:w-36" />
           </Link>
+          <p className="text-gray-300 text-sm">This site is a tech product discovery platform that showcases cutting-edge innovations in cybersecurity, AI, and communication tools. It features a dynamic carousel banner, highlighting the latest advancements, and provides users with easy navigation through a sleek interface.</p>
             </div>
 
-            <div className="flex flex-wrap justify-center mt-6 -mx-4">
-                <Link to='/' className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" aria-label="Reddit"> Home </Link>
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-col  space-y-2">
+              <p className="text-yellow-100">Pages:</p>
+                <Link to='/' className="text-sm text-gray-300 transition-colors duration-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit"> Home </Link>
                 
-                <Link to='/Products' className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" aria-label="Reddit"> Products </Link>
+                <Link to='/Products' className="text-sm text-gray-300 transition-colors duration-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit"> Products </Link>
 
-                <Link to='/Dashboard' className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" aria-label="Reddit"> Dashboard </Link>
+                <Link to='/Dashboard' className="text-sm text-gray-300 transition-colors duration-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit"> Dashboard </Link>
                 
-                <Link to='/Login' className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" aria-label="Reddit"> Login </Link>
+                <Link to='/Login' className="text-sm text-gray-300 transition-colors duration-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit"> Login </Link>
 
-                <Link to='/Registration' className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" aria-label="Reddit"> Registration </Link>
+                <Link to='/Registration' className="text-sm text-gray-300 transition-colors duration-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit"> Registration </Link>
+                </div>
+              </div>
 
-            </div>
-
-        </div>
-          <div className="flex p-10 lg:p-4 flex-col items-center space-y-2 lg:flex-row lg:justify-around">
-
-          <p className="flex items-center text-sm text-gray-500 dark:text-gray-300">
+          <div className="flex flex-col space-y-2">
+          <p className="text-yellow-100">Location:</p>
+            <p className="flex items-center text-sm text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -40,9 +42,7 @@ const Footer = () => {
                   </svg>
                   <span>+8801757433007</span>
                 </p>
-
-
-                <p className="flex items-center text-sm text-gray-500 dark:text-gray-300">
+                <p className="flex items-center text-sm text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -55,7 +55,7 @@ const Footer = () => {
                   <span>mkiuzzal007@gmail.com</span>
                 </p>
 
-                <p className="flex items-center text-sm text-gray-500 dark:text-gray-300">
+                <p className="flex items-center text-sm text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -71,10 +71,12 @@ const Footer = () => {
                   <span>Ghulshan-1,Euro Tower</span>
                 </p>
           </div>
+        </div>
+
         <hr className="my-6 border-gray-200 md:my-10 dark:border-gray-700" />
 
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-            <p className="text-sm text-gray-500 dark:text-gray-300">© Copyright 2024. All Rights Reserved Tech-Tools.</p>
+            <p className="text-sm text-gray-500">© Copyright 2024. All Rights Reserved Tech-Tools.</p>
 
             <div className="flex -mx-2">
                 <a href="#" className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit">
