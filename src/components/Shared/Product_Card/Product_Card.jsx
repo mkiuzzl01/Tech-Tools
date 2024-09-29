@@ -5,7 +5,7 @@ import UpVote_Button from "../UpVote_Button/UpVote_Button";
 const Product_Card = ({ product,refetch,ownerEmail,productCard}) => {
   return (
     <div>
-      <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 shadow-xl">
+      <div className="flex card-compact rounded-lg justify-between items-center bg-base-100 border-2 hover:shadow-lg duration-300 hover:shadow-[#FFD7C4]">
         <figure>
           <img
             src={product.productImage}

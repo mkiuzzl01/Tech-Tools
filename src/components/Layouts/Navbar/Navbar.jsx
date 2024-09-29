@@ -156,7 +156,7 @@ const Navbar = () => {
             ) : (
               <div className="space-x-4">
                 <Link to="/Login">
-                  <button className="btn">Login</button>
+                  <button className={`btn bg-[#96CEB4] border-none ${isTransparent && 'text-white'}`}>Login</button>
                 </Link>
               </div>
             )}

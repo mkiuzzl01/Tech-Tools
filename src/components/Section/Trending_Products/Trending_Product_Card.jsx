@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 const Trending_Product_Card = ({product,refetch,ownerEmail}) => {
   return (
-      <div className="card card-compact bg-base-100 shadow-xl">
+      <div className="card card-compact bg-base-100 border-2 border-[#C4D7FF] hover:shadow-lg duration-300 hover:shadow-[#FFD7C4]">
         <figure>
           <img
             src={product.productImage}

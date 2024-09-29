@@ -35,7 +35,7 @@ const Trending_Products = () => {
       </div>
       <div className="flex justify-center my-10">
         <Link to='/Products'>
-        <button className="btn btn-sm">Show All Product</button>
+        <button className="btn bg-[#96CEB4] btn-sm rounded-none">See Product</button>
         </Link>
       </div>
     </div>
