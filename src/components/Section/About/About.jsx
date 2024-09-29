@@ -1,8 +1,8 @@
 
 const About = () => {
     return (
-        <section className="bg-white dark:bg-gray-900">
-        <div className="relative flex">
+        <section className="bg-white dark:bg-gray-900 ">
+        <div className=" flex">
           <div className="min-h-screen lg:w-1/3"></div>
           <div className="hidden w-3/4 min-h-screen bg-gray-100 dark:bg-gray-800 lg:block"></div>
   

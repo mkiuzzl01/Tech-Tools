@@ -51,12 +51,12 @@ const Products = () => {
 
 
   return (
-    <div>
+    <div className="pt-24">
       <Helmet>
         <title>Tech-Tools | Products </title>
       </Helmet>
       <form onSubmit={handleSearch}>
-        <div className="my-4">
+        <div>
           <div className="flex">
             <input
               className="input input-bordered rounded-e rounded-3xl w-full"
@@ -73,7 +73,7 @@ const Products = () => {
         </div>
       </form>
       {products.length > 0 ? (
-        <div>
+        <div className="mt-10">
           <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
             {products.map((product) => (
               <Product_Card

@@ -1,7 +1,5 @@
-// import {useEffect } from "react";
+
 import Swal from "sweetalert2";
-// import Aos from "aos";
-// import "aos/dist/aos.css";
 import useAuth from "../../../hooks/useAuth";
 
 const Contact = () => {
@@ -16,12 +14,8 @@ const Contact = () => {
     });
   };
 
-//   useEffect(() => {
-//     Aos.init({ duration: 1000 });
-//   }, []);
-
   return (
-    <div>
+    <div className="mt-24">
       <div className="my-4" data-aos="zoom-in">
         <section className="rounded-lg bg-[url(https://i.postimg.cc/pTG29F3X/photo-1515879218367-8466d910aaa4-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg)]  bg-no-repeat bg-cover bg-center">
           <div className="grid items-center grid-cols-1 p-10 mx-auto md:grid-cols-2 md:divide-x bg-opacity-50 bg-slate-700 rounded-lg">

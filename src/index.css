@@ -2,23 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-transparent {
-    background-color: transparent;
-  }
-  
-  .bg-white {
-    background-color: white;
-  }
-  
-  .shadow-md {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .transition-colors {
-    transition-property: background-color, box-shadow;
-  }
-  
-  .duration-300 {
-    transition-duration: 300ms;
-  }
   

@@ -9,8 +9,8 @@ const Menu = ({ link, RouteName }) => {
         to={link}
         className={({ isActive }) =>
        isActive
-         ? " text-[#f1f141]"
-         : " hover:text-green-400 rounded-lg"
+       ? "border-b-2 text-[#23BE0A] border-red-500 rounded-none"
+       : "hover:text-red-300"
      }
       >
         {RouteName}
