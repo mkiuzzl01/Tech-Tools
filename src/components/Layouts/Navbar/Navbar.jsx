@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { IoMdLogOut } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -48,12 +48,12 @@ const Navbar = () => {
   );
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50">
+    <div className="fixed top-0 left-0 w-full z-10">
       <div
         className={`max-w-7xl mx-auto ${
           isTransparent
-            ? "bg-black bg-opacity-20 text-white"
-            : "bg-white text-black shadow-md"
+            ? "bg-[#C4D7FF] bg-opacity-20 text-white"
+            : "bg-[#C4D7FF] text-black"
         } transition-all duration-300`}
       >
         <div className="navbar">
@@ -81,7 +81,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content space-x-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                className="menu menu-sm dropdown-content space-x-0 mt-3 z-40 p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {navLink}
               </ul>
@@ -100,7 +100,7 @@ const Navbar = () => {
           <div className="navbar-end space-x-2">
             {user ? (
               <div>
-                <div className="dropdown z-40 dropdown-end">
+                <div className="dropdown z-50 dropdown-end"> {/* Higher z-index for dropdown */}
                   <span
                     className={
                       user
@@ -131,7 +131,7 @@ const Navbar = () => {
                   </div>
                   <ul
                     tabIndex={0}
-                    className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                    className="mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                   >
                     <div className="space-y-3">
                       <h4 className="text-center my-2">

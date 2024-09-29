@@ -4,11 +4,10 @@ import Footer from "../components/Layouts/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 
 const Root = () => {
-
   return (
     <div>
       <div>
-        <header className="sticky top-0">
+        <header>
           <Navbar></Navbar>
         </header>
         <main className="min-h-[calc(100vh-288px)] max-w-7xl mx-auto">
