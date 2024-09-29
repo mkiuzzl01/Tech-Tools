@@ -1,20 +1,29 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const Section_Title = ({title,sub_title,paragraph}) => {
-    return (
-        <div className='py-5 my-5'>
-            <h1 className='text-3xl text-center font-semibold'>{title}</h1>
-            <h4 className='text-center '>{sub_title}</h4>
-            <div className="divider divider-accent"></div>
-            <p className='text-center'>{paragraph}</p>
+const Section_Title = ({ title, sub_title, paragraph, img, img_width }) => {
+  return (
+    <div className="mb-10">
+      <div className="flex justify-around items-center">
+        <div>
+          <h1 className="text-2xl md:text-3xl text-center font-semibold">{title}</h1>
+          <h4 className="text-center text-sm md:text-lg">{sub_title}</h4>
         </div>
-    );
+        <div>
+        <img width={img_width} src={img} alt={title} />
+        </div>
+      </div>
+
+      <div className="divider divider-accent"></div>
+      <p className="text-center text-sm md:text-lg">{paragraph}</p>
+    </div>
+  );
 };
 
 Section_Title.propTypes = {
-    title:PropTypes.string,
-    sub_title:PropTypes.string,
-    paragraph:PropTypes.string,
+  title: PropTypes.string,
+  sub_title: PropTypes.string,
+  paragraph: PropTypes.string,
+  img: PropTypes.string,
 };
 
 export default Section_Title;

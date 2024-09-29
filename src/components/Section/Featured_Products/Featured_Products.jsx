@@ -20,7 +20,9 @@ const Featured_Products = () => {
     <div>
       <div className="flex justify-center">
         <Section_Title
-          title="Featured-Products"
+        img='https://i.postimg.cc/zBxyYK3m/360-F-386860502-B62j-MXd-N9g-Rcy-JVZf-Sspaw-SMljs6-MATO.jpg'
+        img_width={300}
+          title="Feature Products"
           sub_title="Discover Our Top Tech Tools"
           paragraph="Our featured products section highlights the most sought-after tech tools that are making waves in the industry. From powerful software solutions to innovative hardware, these products are chosen for their ability to deliver exceptional results and streamline your daily tasks. Upgrade your toolkit with our top picks."
         ></Section_Title>

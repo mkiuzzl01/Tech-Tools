@@ -21,9 +21,11 @@ const Trending_Products = () => {
     <div>
       <div className="my-10 flex justify-center">
         <Section_Title
+        img='https://i.postimg.cc/526PDW9p/image.png'
+        img_width={200}
           title="Trending Products"
           sub_title="Explore Our Most Popular Tech Tools"
-          paragraph="Discover the products that are currently making waves in the tech world. Our trending selection features the latest innovations and bestsellers, chosen based on their popularity, performance, and user reviews. Whether you’re looking to upgrade your toolkit or find the next big thing in technology, our trending products are sure to inspire and elevate your projects."
+          paragraph="Discover the products that are currently making waves in the tech world. Our trending selection features the latest innovations and bestsellers, chosen based on their popularity, performance, and user reviews. Whether you’re looking to upgrade your toolkit or find the next big thing in technology"
         ></Section_Title>
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
