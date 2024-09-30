@@ -15,7 +15,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="mt-24">
+    <div className="mt-24 px-2 md:px-0">
+      <div>
+      <h1 className="text-2xl font-bold">Get in Touch</h1>
+      <p>We’d love to hear from you! Whether you have a question about our tools, need support, or want to explore partnership opportunities, feel free to reach out to us. Simply fill out the form below, and our team will get back to you as soon as possible.</p>
+      </div>
       <div className="my-4" data-aos="zoom-in">
         <section className="rounded-lg bg-[url(https://i.postimg.cc/pTG29F3X/photo-1515879218367-8466d910aaa4-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg)]  bg-no-repeat bg-cover bg-center">
           <div className="grid items-center grid-cols-1 p-10 mx-auto md:grid-cols-2 md:divide-x bg-opacity-50 bg-slate-700 rounded-lg">
