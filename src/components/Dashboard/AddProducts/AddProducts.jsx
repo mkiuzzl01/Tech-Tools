@@ -108,12 +108,12 @@ const AddProducts = () => {
 
   return (
     <div>
-      <div className="max-w-4xl m-auto border-2 rounded-lg p-4 bg-[#20282b]">
+      <div className=" rounded-lg bg-[#20282b]">
         <Helmet>
           <title>Tech-Tools | Add Product </title>
         </Helmet>
-        <div>
-          <div className="space-y-4 mb-4">
+        <div className="md:px-5">
+          <div className="space-y-4 py-5">
             <h1 className="text-4xl flex space-x-2 justify-center items-center">
               <span className="text-white">Add Product</span>
             </h1>

@@ -12,12 +12,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-screen-xl m-auto">
-      <div className="relative min-h-screen md:flex">
+    <div className="max-w-7xl m-auto">
+      <div className="relative h-screen md:flex justify-between">
         {/* This is NavLink part  */}
         <SideBar isOpen={isOpen} toggleMenu={toggleMenu}></SideBar>
         {/* this is content part */}
-        <div className="flex-1 md:ml-64 lg:m-5">
+        <div className="md:w-3/4 m-2 md:m-0 md:ps-5 md:py-5">
           <div className="flex justify-end">
             <button onClick={toggleMenu} className="md:hidden px-4 py-3">
               {isOpen ? (

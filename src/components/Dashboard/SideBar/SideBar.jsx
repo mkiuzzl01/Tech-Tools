@@ -17,7 +17,7 @@ const SideBar = ({ isOpen }) => {
   };
   return (
     <div
-      className={`z-40  flex flex-col justify-between overflow-x-hidden text-white bg-[#2F4F4F] w-64 md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
+      className={`z-40  flex flex-col justify-between overflow-x-hidden text-white bg-[#2F4F4F] w-64  md:w-1/4 space-y-6 px-2 py-4 absolute lg:static inset-y-0 left-0 transform ${
         isOpen && "-translate-x-full"
       }  md:translate-x-0  transition duration-200 ease-in-out`}
     >
@@ -25,8 +25,8 @@ const SideBar = ({ isOpen }) => {
       <div className="flex justify-center"><Link to="/" className="">
             <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="" className=" w-24 lg:w-32" />
           </Link></div>
-        <div className="menu">
-          <ul className="ul space-y-2">
+        <div className="flex flex-col ms-5 mt-10">
+          <ul className="ul space-y-4">
             {/* this route for user role */}
             {role?.role === "user" && (
               <>
@@ -77,8 +77,8 @@ const SideBar = ({ isOpen }) => {
           </ul>
         </div>
         <div className="divider divider-accent">OR</div>
-        <div className="menu">
-          <ul className="ul space-y-2">
+        <div className="flex flex-col ms-5 mt-10">
+          <ul className="ul space-y-4">
             <Menu link="/" RouteName="Home"></Menu>
             <Menu link="/Products" RouteName="Products"></Menu>
           </ul>
