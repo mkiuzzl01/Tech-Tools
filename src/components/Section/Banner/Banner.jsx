@@ -12,7 +12,7 @@ const Banner = () => {
         showStatus={false}
       >
         <div className="bg-[url(https://i.postimg.cc/Sx3C9XFd/photo-1423666639041-f56000c27a9a-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg)] w-full  bg-no-repeat bg-cover bg-center">
-          <div className="pt-32 pb-12 px-4 md:pt-52 md:pb-24 bg-blue-500 bg-opacity-70 h-[500px] md:h-[600px] space-y-8">
+          <div className="pt-32 pb-12 px-4 md:pt-52 md:pb-24 bg-blue-500 bg-opacity-50 h-[500px] md:h-[600px] space-y-8">
             <h4 className="text-2xl md:text-3xl font-semibold text-violet-100">
               Discover the Latest Tech Innovations
             </h4>
