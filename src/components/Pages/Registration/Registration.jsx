@@ -124,7 +124,7 @@ const Registration = () => {
     },
   });
   return (
-    <div className="lg:w-1/2 lg:m-auto border-2 lg:p-10 m-4 p-5 lg:mt-2 rounded-lg">
+    <div className="lg:w-1/2 lg:m-auto border-2 lg:p-10 m-4 p-5 lg:mt-2 rounded-lg bg-[#96CEB4]">
       <div className="mb-10">
         <h1 className="text-5xl font-bold text-center">Registration</h1>
       </div>

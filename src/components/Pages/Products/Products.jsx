@@ -8,7 +8,7 @@ import Loading from "../../Shared/Loading/Loading";
 import { CiSearch } from "react-icons/ci";
 
 const Products = () => {
-  const { loading, setLoading } = useAuth();
+  const [loading, setLoading] = useState(true);
   const productCard = true;
   const axiosPublic = useAxiosPublic();
   const [products, setProducts] = useState([]);
@@ -23,32 +23,34 @@ const Products = () => {
       const { data } = await axiosPublic.get(
         `/products-search?search=${search}&page=${currentPage}&size=${itemsPerPage}`
       );
-      setLoading(false);
       setProducts(data.data);
       setTotalDocuments(data.totalDocuments);
+      setLoading(false);
     };
     getData();
   }, [itemsPerPage, currentPage, search, axiosPublic]);
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setLoading(true)
     const form = e.target;
     const key = form.search.value;
     form.reset();
     setSearch(key);
     setCurrentPage(1);
+    setLoading(false);
   };
 
   const numberOfPages = Math.ceil(totalDocuments / itemsPerPage);
   const pages = [...Array(numberOfPages).keys()].map((element) => element + 1);
 
   const handlePagination = (value) => {
+    setLoading(true)
     setCurrentPage(value);
+    setLoading(false)
   };
 
   if (loading) return <Loading></Loading>;
-
-
 
   return (
     <div className="pt-24">
