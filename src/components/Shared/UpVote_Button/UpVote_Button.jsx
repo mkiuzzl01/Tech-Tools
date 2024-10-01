@@ -3,17 +3,25 @@ import { MdHowToVote } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
 
 const UpVote_Button = ({ vote, id, refetch }) => {
-  const { user, warningToast } = useAuth();
+  const { user, logOut, warningToast } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  // const [undo,setUndo] = useState(false);
+  // console.log(undo);
 
   const handleVoteUp = async () => {
+    if (!user) {
+      logOut();
+      return navigate("/Login");
+    }
 
     const voter = user?.email;
     try {
       const { data } = await axiosSecure.patch(`/upVote/${id}`, { voter });
-      // console.log(data);
       if (data.modifiedCount > 0) {
         Swal.fire({
           position: "center",
@@ -25,9 +33,14 @@ const UpVote_Button = ({ vote, id, refetch }) => {
         refetch();
       }
     } catch (error) {
-      warningToast(error?.response?.data);
-      // console.log();
+      console.log(error);
+      return warningToast(error?.response?.data);
     }
+
+    // setTimeout(() => {
+    //   setUndo(true);
+    // }, 2000);
+    // return setUndo(false);
   };
   return (
     <div>
@@ -38,7 +51,7 @@ const UpVote_Button = ({ vote, id, refetch }) => {
       >
         <span>{vote}</span>
         <MdHowToVote />
-        UpVote
+        Vote
       </button>
     </div>
   );

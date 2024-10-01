@@ -41,7 +41,7 @@ const SocialLogin = () => {
     <button
       disabled={loading}
       onClick={handleGoogle}
-      className="flex items-center justify-center space-x-4 border-2 border-dashed rounded-lg p-2 my-4 w-full"
+      className="flex items-center justify-center space-x-4 border-2 hover:bg-slate-100 border-dashed rounded-lg p-2 my-4 w-full"
     >
       <span>
         <FcGoogle className="text-3xl" />

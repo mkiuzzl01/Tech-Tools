@@ -100,7 +100,7 @@ const Navbar = () => {
           <div className="navbar-end space-x-2">
             {user ? (
               <div>
-                <div className="dropdown z-50 dropdown-end"> {/* Higher z-index for dropdown */}
+                <div className="dropdown z-50 dropdown-end">
                   <span
                     className={
                       user
@@ -134,7 +134,7 @@ const Navbar = () => {
                     className="mt-3 z-50 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                   >
                     <div className="space-y-3">
-                      <h4 className="text-center my-2">
+                      <h4 className="text-center my-2 text-black">
                         {user?.displayName
                           ? user.displayName
                           : "Username Not Found"}
