@@ -9,8 +9,6 @@ import {
 } from "react-simple-captcha";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 import { GiOilySpiral } from "react-icons/gi";
 
@@ -66,17 +64,17 @@ const Login = () => {
       setLoading(true);
       if (validateCaptcha(values.captcha)) {
         const { email, password } = values;
-        const userInfo = { email, password };
+        // const userInfo = { email, password };
 
         // console.log(userInfo);
 
         try {
           await logInUser(email, password);
           successToast("Login successful");
-          navigate(location?.state ? location.state : "/");
+         return navigate(location?.state ? location.state : "/");
         } catch (error) {
-          console.log(error.message);
           errorToast("Something Wrong");
+          return setLoading(false);
         }
       } else {
         setCaptchaValid(false);
@@ -180,7 +178,6 @@ const Login = () => {
           </Link>
         </p>
       </form>
-      <ToastContainer limit={3} autoClose={1000} />
     </div>
   );
 };

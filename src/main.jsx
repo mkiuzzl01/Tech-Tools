@@ -6,7 +6,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider } from "react-router-dom";
 import router from "./Routes/Route.jsx";
 import AuthProvider from "./AuthProvide/AuthProvider.jsx";
-import { ToastContainer } from "react-toastify";
+import { ReactNotifications } from "react-notifications-component";
+import 'react-notifications-component/dist/theme.css'
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -14,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
+          <ReactNotifications />
           <RouterProvider router={router}></RouterProvider>
-          <ToastContainer limit={3} autoClose={1000}/>
         </HelmetProvider>
       </QueryClientProvider>
     </AuthProvider>

@@ -4,9 +4,6 @@ import { LuEyeOff } from "react-icons/lu";
 import { FiEye } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 import { GiOilySpiral } from "react-icons/gi";
@@ -59,8 +56,7 @@ const Registration = () => {
   } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  // setLoading(false);
-// console.log(loading);
+
   const formik = useFormik({
     initialValues: {
       Name: "",
@@ -84,46 +80,46 @@ const Registration = () => {
       setError("");
       const formData = new FormData();
       formData.append("image", image);
-      // console.log(image);
 
       //upload to image imagebb from get input field
       let photoURL = null;
+
       if (image) {
         try {
-          const { data } = await axios.post(imageHostingApi, formData, {
-            headers: {
-              "content-Type": "multipart/form-data",
-            },
-          });
+          const { data } = await axiosPublic.post(imageHostingApi, formData);
           photoURL = data?.data?.display_url;
-          // console.log(photoURL);
-          // setPhoto(photoURL);
         } catch (error) {
-          errorToast("Something went wrong with photo upload");
-          setLoading(false);
-          return;
+          errorToast(error?.response?.data?.error?.message);
+          return setLoading(false);
         }
       }
+
       try {
         //set information to firebase
-        await registerUser(email, pass);
+        try {
+          await registerUser(email, pass);
+        } catch (error) {
+          setError(error.message.split("/")[1].split(")"));
+          return setLoading(false);
+        }
         await profileUpdate(name, photoURL);
         successToast("Registration successful");
         navigate(location?.state ? location.state : "/");
         setUser({ ...user, photoURL: photoURL, displayName: name });
       } catch (error) {
         errorToast("Something Wrong");
-        setError(error.message.split("/")[1].split(")"));
+        return setLoading(false);
         // console.log(error.message);
       }
 
       try {
         //after all oke then user information sent to database
-        const info = { name, email, image, photoURL, role:'user'};
+        const info = { name, email, image, photoURL, role: "user" };
         await axiosPublic.post("/users", info);
         // console.log(res.data);
       } catch (error) {
         errorToast("Something Wrong Sent to Database Your Information");
+        return setLoading(false);
       }
     },
   });
@@ -229,7 +225,6 @@ const Registration = () => {
           </Link>
         </p>
       </form>
-      <ToastContainer limit={3} autoClose={1000} />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Layouts/Navbar/Navbar";
 import Footer from "../components/Layouts/Footer/Footer";
-import "react-toastify/dist/ReactToastify.css";
 
 const Root = () => {
   return (

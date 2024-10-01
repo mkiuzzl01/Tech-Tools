@@ -9,9 +9,11 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { toast } from "react-toastify";
+
 import auth from "../firebase.config/firebase.config";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Store } from "react-notifications-component";
+
 
 // import axios from "axios";
 
@@ -51,20 +53,53 @@ const AuthProvider = ({ children }) => {
   };
 
   const successToast = (text) => {
-    return toast.success(text, {
-      position: "bottom-center",
-    });
+    return Store.addNotification({
+      title: "Congratulation",
+      message:text,
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: true
+      }
+      
+    })
   };
 
   const errorToast = (text) => {
-    return toast.error(text, {
-      position: "bottom-center",
-    });
+    return Store.addNotification({
+      title: "Sorry",
+      message:text,
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: true
+      }
+      
+    })
   };
   const warningToast = (text) => {
-    return toast.warn(text, {
-      position: "bottom-center",
-    });
+    return Store.addNotification({
+      title: "Warning",
+      message:text,
+      type: "warning",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: true
+      }
+      
+    })
   };
 
   useEffect(() => {

@@ -9,7 +9,6 @@ const SocialLogin = () => {
   const axiosPublic = useAxiosPublic();
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location);
 
   const from = location?.state ? location?.state?.from?.pathname : "/";
   const handleGoogle = async () => {
@@ -21,18 +20,20 @@ const SocialLogin = () => {
         const email = user?.email;
         const photo = user?.photoURL;
         const info = { name, email, photo, role:'user' };
-        // console.log(info);
+
         try {
           await axiosPublic.post("/users", info);
           successToast("Login successful");
           navigate(from);
         } catch (error) {
-          console.log(error.message);
+          errorToast(error?.response?.data?.error?.message);
+          return setLoading(false);
         }
       }
     } catch (error) {
-      // console.log(error.message);
-      return errorToast("Something Wrong");
+      errorToast("something wrong")
+      errorToast(error.message.split("/")[1].split(")"));
+      return setLoading(false);
     }
   };
 
