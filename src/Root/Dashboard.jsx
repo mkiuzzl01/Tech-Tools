@@ -5,7 +5,7 @@ import { IoMenu } from "react-icons/io5";
 import { GiSplitCross } from "react-icons/gi";
 
 const Dashboard = () => {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
 
   const toggleMenu = () => {
     setOpen(!isOpen);
@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl m-auto">
-      <div className="relative h-screen md:flex justify-between">
+      <div className="h-screen md:flex justify-between">
         {/* This is NavLink part  */}
         <SideBar isOpen={isOpen} toggleMenu={toggleMenu}></SideBar>
         {/* this is content part */}

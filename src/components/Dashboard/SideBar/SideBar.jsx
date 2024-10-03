@@ -5,14 +5,14 @@ import useUserVerification from "../../../hooks/useUserVerification";
 import { BiLogOutCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const SideBar = ({ isOpen }) => {
-  const { logOut } = useAuth();
+const SideBar = ({ isOpen,toggleMenu }) => {
+  const { logOut,errorToast } = useAuth();
   const { role } = useUserVerification();
   const handleLogOut = async () => {
     try {
       await logOut();
     } catch (error) {
-      console.log(error.message);
+      errorToast("Something Wrong");
     }
   };
   return (
@@ -26,7 +26,7 @@ const SideBar = ({ isOpen }) => {
             <img src="https://i.postimg.cc/BnBymGpd/Tech-removebg-preview.png" alt="" className=" w-24 lg:w-32" />
           </Link></div>
         <div className="flex flex-col ms-5 mt-10">
-          <ul className="ul space-y-4">
+          <ul onClick={toggleMenu} className="ul space-y-4">
             {/* this route for user role */}
             {role?.role === "user" && (
               <>
