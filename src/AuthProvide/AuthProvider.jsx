@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
       message:text,
       type: "success",
       insert: "top",
-      container: "top-right",
+      container: "bottom-right",
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
@@ -75,7 +75,7 @@ const AuthProvider = ({ children }) => {
       message:text,
       type: "danger",
       insert: "top",
-      container: "top-right",
+      container: "bottom-right",
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }) => {
       message:text,
       type: "warning",
       insert: "top",
-      container: "top-right",
+      container: "bottom-right",
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {

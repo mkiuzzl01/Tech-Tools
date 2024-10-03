@@ -52,12 +52,9 @@ const AddProducts = () => {
     const description = form.description.value;
     const productTags = tags.map((tag) => tag.text);
 
-    // return console.log(productTags);
-
     const productImage = form.image.files[0];
     const formData = new FormData();
     formData.append("image", productImage);
-    // console.log(productImage);
 
     try {
       const { data } = await axiosPublic.post(imageHostingApi, formData, {
@@ -97,12 +94,10 @@ const AddProducts = () => {
           }
         } catch (error) {
           errorToast("Something Wrong");
-          // console.log(error.message);
         }
       }
     } catch (error) {
       errorToast("Something Wrong");
-      // console.log(error.message);
     }
   };
 
