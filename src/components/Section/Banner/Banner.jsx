@@ -16,7 +16,7 @@ const Banner = () => {
             <h4 className="text-2xl md:text-3xl font-semibold text-violet-100">
               Discover the Latest Tech Innovations
             </h4>
-            <p className="md:text-2xl text-yellow-100">
+            <p className="text-xl md:text-2xl text-yellow-100">
               {" "}
               Explore groundbreaking products and tools <br /> that are
               transforming industries. Stay ahead with fresh updates every day.
@@ -37,7 +37,7 @@ const Banner = () => {
               Share Your Innovative Creations
             </h4>
 
-            <p className="text-2xl text-yellow-100">
+            <p className="text-xl md:text-2xl text-yellow-100">
               Launch your product and gain visibility <br /> in front of a community of
               tech enthusiasts eager to support new ideas.
             </p>
@@ -59,7 +59,7 @@ const Banner = () => {
               Connect with Top Creators and Investors
             </h1>
 
-            <p className="text-2xl text-yellow-100">
+            <p className="text-xl md:text-2xl text-yellow-100">
               Network with innovators and investors <br /> who share a passion for
               technology, and grow your project to the next level.
             </p>
