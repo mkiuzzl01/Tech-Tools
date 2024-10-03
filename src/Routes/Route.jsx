@@ -12,7 +12,6 @@ import Not_Found_Page from "../components/Pages/Not_Found_Page/Not_Found_Page";
 import Profile from "../components/Dashboard/Profile/Profile";
 import Product_Details from "../components/Pages/Product_Details/Product_Details";
 import StatisticsPage from "../components/Dashboard/StatisticsPage/StatisticsPage";
-import ManageCoupons from "../components/Dashboard/ManageCoupons/ManageCoupons";
 import ManageUsers from "../components/Dashboard/ManageUsers/ManageUsers";
 import ProductReviewQueue from "../components/Dashboard/ProductReviewQueue/ProductReviewQueue";
 import ReportedContents from "../components/Dashboard/ReportedContents/ReportedContents";
@@ -23,7 +22,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    errorElement:<Not_Found_Page></Not_Found_Page>,
+    errorElement: <Not_Found_Page></Not_Found_Page>,
     children: [
       {
         path: "/",
@@ -35,25 +34,33 @@ const router = createBrowserRouter([
       },
       {
         path: "/About",
-        element:<About></About>,
+        element: <About></About>,
       },
       {
         path: "/Contact",
-        element:<Contact></Contact>
+        element: <Contact></Contact>,
       },
       {
         path: "/Products_Details/:id",
-        element:<PrivateRoutes><Product_Details></Product_Details></PrivateRoutes>,
+        element: (
+          <PrivateRoutes>
+            <Product_Details></Product_Details>
+          </PrivateRoutes>
+        ),
       },
     ],
   },
   //User Dashboard Related Route
   {
     path: "/Dashboard",
-    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
     children: [
       {
-        index:true,
+        index: true,
         element: <Profile></Profile>,
       },
       {
@@ -78,11 +85,7 @@ const router = createBrowserRouter([
       },
       {
         path: "ManageUsers",
-        element:<ManageUsers></ManageUsers>,
-      },
-      {
-        path: "ManageCoupons",
-        element: <ManageCoupons></ManageCoupons>,
+        element: <ManageUsers></ManageUsers>,
       },
     ],
   },

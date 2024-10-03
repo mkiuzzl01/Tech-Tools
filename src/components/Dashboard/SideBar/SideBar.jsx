@@ -68,10 +68,6 @@ const SideBar = ({ isOpen,toggleMenu }) => {
                   RouteName="Manage Users"
                   link="/Dashboard/ManageUsers"
                 ></Menu>
-                <Menu
-                  RouteName="Manage Coupons"
-                  link="/Dashboard/ManageCoupons"
-                ></Menu>
               </>
             )}
           </ul>
