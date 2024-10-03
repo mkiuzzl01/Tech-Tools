@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import UpVote_Button from "../../Shared/UpVote_Button/UpVote_Button";
 const Trending_Product_Card = ({product,refetch,ownerEmail}) => {
   return (
-      <div className="card card-compact bg-base-100 border-2 border-[#C4D7FF] hover:shadow-lg duration-300 hover:shadow-[#FFD7C4]">
+      <div className="px-2 md:px-0">
+        <div className="card card-compact bg-base-100 border-2 border-[#C4D7FF] hover:shadow-lg duration-300 hover:shadow-[#FFD7C4]">
         <figure>
           <img
             src={product.productImage}
@@ -27,6 +28,7 @@ const Trending_Product_Card = ({product,refetch,ownerEmail}) => {
           <UpVote_Button vote={product.vote} id={product._id} refetch={refetch} ownerEmail={ownerEmail}></UpVote_Button>
           </div>
         </div>
+      </div>
       </div>
   );
 };

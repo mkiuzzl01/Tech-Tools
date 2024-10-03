@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Section_Title = ({ title, sub_title, paragraph, img, img_width }) => {
   return (
-    <div className="mb-10">
+    <div className="mb-10 mx-3 md:mx-0">
       <div className="flex justify-around items-center">
         <div>
           <h1 className="text-2xl md:text-3xl text-center font-semibold">{title}</h1>
