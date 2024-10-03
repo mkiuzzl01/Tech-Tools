@@ -8,6 +8,7 @@ const Navbar = () => {
   const { user, warningToast, logOut, errorToast } = useAuth();
   const [isTransparent, setIsTransparent] = useState(true);
   const location = useLocation();
+  const [isOpen,setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +48,7 @@ const Navbar = () => {
     </>
   );
 
+
   return (
     <div className="fixed top-0 left-0 w-full z-10">
       <div
@@ -63,6 +65,7 @@ const Navbar = () => {
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost lg:hidden"
+                onClick={()=> setIsOpen(!isOpen)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -79,12 +82,14 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <ul
+              {
+                isOpen && <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content space-x-0 mt-3 z-40 p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content flex flex-col mt-3 z-40 p-2 shadow bg-[#C4D7FF] text-black rounded-box w-40"
               >
-                {navLink}
+              <span className="space-y-2" onClick={()=> setIsOpen(!isOpen)}>{navLink}</span>
               </ul>
+              }
             </div>
             <Link to="/" className="">
               <img
@@ -156,7 +161,13 @@ const Navbar = () => {
             ) : (
               <div className="space-x-4">
                 <Link to="/Login">
-                  <button className={`btn bg-[#96CEB4] border-none ${isTransparent && 'text-white'}`}>Login</button>
+                  <button
+                    className={`btn bg-[#96CEB4] border-none ${
+                      isTransparent && "text-white"
+                    }`}
+                  >
+                    Login
+                  </button>
                 </Link>
               </div>
             )}
